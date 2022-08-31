@@ -1,0 +1,20 @@
+{
+  "name": "bbn/appui-vcs",
+  "description": "VCS management system for appui",
+  "keywords": ["vcs", "git","php","appui"],
+  "homepage": "https://github.com/nabab/appui-vcs",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Nabet",
+      "email": "thomas.nabet@gmail.com",
+      "homepage": "https://bbn.solutions",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "bbn/bbn": "dev-master"
+  }
+}
+
