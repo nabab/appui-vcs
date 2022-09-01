@@ -10,10 +10,14 @@
         </bbn-toolbar>
         <div class="bbn-flex-fill">
           <bbn-scroll>
-            <bbn-list :source="source.servers"
+            <bbn-list :source="root + 'data/servers'"
                       :alternate-background="true"
-                      uid="value"
-                      :selected="selectedServers"/>
+                      uid="id"
+                      :selected="selectedServers"
+                      ref="serversList"
+                      :component="$options.components.server"
+                      source-url="link"
+                      source-value="id"/>
           </bbn-scroll>
         </div>
       </div>
@@ -29,8 +33,12 @@
         </bbn-toolbar>
         <div class="bbn-flex-fill">
           <bbn-scroll v-if="selectedServer">
-            <bbn-list :source="source.servers"
-                      :alternate-background="true"/>
+            <bbn-list :source="root + 'data/projects'"
+                      :data="{server: selectedServer}"
+                      :alternate-background="true"
+                      uid="id"
+                      ref="projectsList"
+                      source-value="id"/>
           </bbn-scroll>
           <div v-else
                class="bbn-middle bbn-overlay">

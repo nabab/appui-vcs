@@ -18,6 +18,7 @@
     methods: {
       onSuccess(d){
         if (d.success) {
+          appui.getRegistered('appui-vcs-home').refreshServersList();
           appui.success();
         }
         else {
