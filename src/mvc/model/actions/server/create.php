@@ -1,5 +1,5 @@
 <?php
-if ($model->hasData(['name', 'url', 'type', 'adminToken'], true)
+if ($model->hasData(['name', 'url', 'type', 'adminAccessToken'], true)
   && ($vcsCls = new \bbn\Appui\Vcs($model->db))
 ) {
   return [
@@ -7,8 +7,8 @@ if ($model->hasData(['name', 'url', 'type', 'adminToken'], true)
       $model->data['name'],
       $model->data['url'],
       $model->data['type'],
-      $model->data['adminToken'],
-      !empty($model->data['userToken']) ? $model->data['userToken'] : ''
+      $model->data['adminAccessToken'],
+      !empty($model->data['userAccessToken']) ? $model->data['userAccessToken'] : ''
     )
   ];
 }

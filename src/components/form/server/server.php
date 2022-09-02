@@ -16,7 +16,7 @@
            'nf-fa-check bbn-green': !!source.hasAdminAccessToken,
            'nf-fa-times bbn-red': !source.hasAdminAccessToken
          }]"/>
-      <bbn-input v-model="source.adminToken"
+      <bbn-input v-model="source.adminAccessToken"
                  class="bbn-flex-fill"/>
     </div>
     <label class="bbn-label"><?=_('Your access token')?></label>
@@ -26,7 +26,7 @@
            'nf-fa-check bbn-green': !!source.hasUserAccessToken,
            'nf-fa-times bbn-red': !source.hasUserAccessToken
          }]"/>
-      <bbn-input v-model="source.userToken"
+      <bbn-input v-model="source.userAccessToken"
                  class="bbn-flex-fill"/>
     </div>
   </div>

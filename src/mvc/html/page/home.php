@@ -9,7 +9,7 @@
                       @click="createServer"/>
         </bbn-toolbar>
         <div class="bbn-flex-fill">
-          <bbn-scroll>
+          <bbn-scroll axis="y">
             <bbn-list :source="root + 'data/servers'"
                       :alternate-background="true"
                       uid="id"
@@ -17,7 +17,9 @@
                       ref="serversList"
                       :component="$options.components.server"
                       source-url="link"
-                      source-value="id"/>
+                      source-value="id"
+                      mode="selection"
+                      @select="onServerSelect"/>
           </bbn-scroll>
         </div>
       </div>
@@ -32,19 +34,41 @@
                       @click="createProject"/>
         </bbn-toolbar>
         <div class="bbn-flex-fill">
-          <bbn-scroll v-if="selectedServer">
-            <bbn-list :source="root + 'data/projects'"
-                      :data="{server: selectedServer}"
-                      :alternate-background="true"
-                      uid="id"
-                      ref="projectsList"
-                      source-value="id"/>
-          </bbn-scroll>
-          <div v-else
-               class="bbn-middle bbn-overlay">
-            <i class="nf nf-fa-long_arrow_left bbn-xl bbn-right-space"/>
-            <span v-text="_('Select or create a server')"
-                 class="bbn-xl bbn-b"/>
+          <div class="bbn-flex-height">
+            <div class="bbn-flex-fill">
+              <bbn-scroll v-if="selectedServer"
+                          axis="y">
+                <bbn-list :source="root + 'data/projects'"
+                          :data="{server: selectedServer}"
+                          :alternate-background="true"
+                          uid="id"
+                          ref="projectsList"
+                          source-value="id"
+                          source-url="link"
+                          @ready="setProjectsListWatch"
+                          :component="$options.components.project"
+                          mode="selection"
+                          @select="onProjectSelect"
+                          :pageable="true"
+                          :limits="[10, 25, 50, 100]"
+                          :limit="50"/>
+              </bbn-scroll>
+              <div v-else
+                  class="bbn-middle bbn-overlay">
+                <i class="nf nf-fa-long_arrow_left bbn-xl bbn-right-space"/>
+                <span v-text="_('Select or create a server')"
+                    class="bbn-xl bbn-b"/>
+              </div>
+              <div v-if="projectsListReady && projectsListLoading"
+                  class="bbn-overlay">
+                <bbn-loader/>
+              </div>
+            </div>
+            <div>
+              <bbn-pager v-if="projectsListReady"
+                         :element="$refs.projectsList"
+                         class="bbn-no-border-left bbn-no-border-bottom bbn-no-border-right"/>
+            </div>
           </div>
         </div>
       </div>
