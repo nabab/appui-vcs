@@ -21,7 +21,7 @@
           width: 500,
           source: {
             name: '',
-            url: '',
+            host: '',
             type: 'git',
             adminAccessToken: '',
             userAccessToken: ''
@@ -68,8 +68,8 @@
                  @click="select">
               <label class="bbn-label bbn-b">` + bbn._('Name') + `</label>
               <div v-text="source.name"/>
-              <label class="bbn-label bbn-b">` + bbn._('URL') + `</label>
-              <div v-text="source.url"/>
+              <label class="bbn-label bbn-b">` + bbn._('Host') + `</label>
+              <div v-text="source.host"/>
             </div>
             <div :class="{'bbn-bordered-bottom': !!comp.getRef('serversList').currentData[index + 1]}">
               <bbn-button icon="nf nf-oct-settings"

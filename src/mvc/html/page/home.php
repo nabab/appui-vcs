@@ -16,7 +16,6 @@
                       :selected="selectedServers"
                       ref="serversList"
                       :component="$options.components.server"
-                      source-url="link"
                       source-value="id"
                       mode="selection"
                       @select="onServerSelect"/>

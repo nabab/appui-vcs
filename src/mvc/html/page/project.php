@@ -1,1 +1,1 @@
-<div>ciao</div>
+<appui-vcs-project :source="source"/>

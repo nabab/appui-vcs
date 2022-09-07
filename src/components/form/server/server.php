@@ -4,8 +4,8 @@
   <div class="bbn-grid-fields bbn-padded">
     <label class="bbn-label"><?=_('Name')?></label>
     <bbn-input v-model="source.name"/>
-    <label class="bbn-label"><?=_('URL')?></label>
-    <bbn-input v-model="source.url"/>
+    <label class="bbn-label"><?=_('Host')?></label>
+    <bbn-input v-model="source.host"/>
     <label class="bbn-label"><?=_('Type')?></label>
     <bbn-dropdown :source="types"
                   v-model="source.type"/>
