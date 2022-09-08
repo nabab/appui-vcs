@@ -60,7 +60,8 @@
                  style="background-color: #EF502F"
                  @click="select">
               <i :class="['bbn-xxxl', {
-                   'nf nf-fa-git': source.type === 'git'
+                   'nf nf-fa-git': source.type === 'git',
+                   'nf nf-dev-sublime': source.type === 'svn'
                  }]"/>
             </div>
             <div class="bbn-flex-fill bbn-grid-fields bbn-spadded"

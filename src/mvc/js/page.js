@@ -3,7 +3,7 @@
     name: 'appui-vcs',
     data(){
       return {
-        root: appui.plugins['appui-vcs']
+        root: appui.plugins['appui-vcs'] + '/'
       }
     }
   }

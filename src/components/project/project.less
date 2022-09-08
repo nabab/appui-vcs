@@ -1,9 +1,23 @@
 .appui-vcs-project {
-  .appui-vcs-project-menu {
-    flex-direction: column;
-    .appui-vcs-project-menu-icon {
-      height: 3rem;
-      width: 3rem;
+  .appui-vcs-project-router {
+    .bbn-tabs {
+      .bbn-tabs-tabs {
+        background-color: var(--default-background) !important;
+        padding: 1rem !important;
+        > li {
+          border: 0 !important;
+          background-color: var(--alt-background) !important;
+          color: var(--alt-text) !important;
+          border-radius:0.4rem !important;
+          padding: 0.5rem !important;
+          height: auto !important;
+          margin-bottom: 1rem !important;
+          &.bbn-tabs-active {
+            background-color: var(--primary-background) !important;
+            color: var(--primary-text) !important;
+          }
+        }
+      }
     }
   }
 }
