@@ -77,7 +77,8 @@
             <span v-text="_('Files')"/>
           </div>
         </div>
-        <div class="bbn-top-lspace bbn-grid-fields">
+        <div class="bbn-top-lspace bbn-grid-fields"
+             style="width: max-content">
           <i class="nf nf-fa-external_link_square bbn-lg"
              :title="_('URL')"/>
           <a class="bbn-no"
@@ -98,50 +99,41 @@
           </div>
           <i class="nf nf-fa-calendar bbn-lg"
              :title="_('Created at')"/>
-          <div v-text="formatDate(source.created)"
+          <div v-text="mainPage.formatDate(source.created)"
                :title="_('Created at')"/>
         </div>
       </div>
       <div class="appui-vcs-project-info-body bbn-flex">
-        <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space bbn-right-space">
-          <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
-                v-text="_('Last commits')"/>
-          <div class="bbn-top-sspace">
-            <div v-for="(ev, idx) in source.commitsEvents"
-                 :class="['bbn-alt-background', 'bbn-spadded', 'bbn-grid-fields', 'bbn-radius', {
-                   'bbn-bottom-space': !!source.commitsEvents[idx+1]
-                 }]">
-              <i class="nf nf-fa-calendar bbn-lg"
-                 :title="_('Created at')"/>
-              <div v-text="formatDate(ev.created)"
-                  :title="_('Created at')"/>
-              <i class="nf nf-fa-user bbn-lg"
-                :title="_('User')"/>
-              <div class="bbn-vmiddle"
-                  :title="_('User')">
-                <img v-if="ev.author.avatar"
-                    :src="ev.author.avatar"
-                    class="appui-vcs-project-info-useravatar bbn-right-sspace">
-                <span v-text="ev.author.name"
-                      class="bbn-right-xsspace"/>
-                <span>(<span v-text="ev.author.username"/>)</span>
-              </div>
-              <i class="nf nf-mdi-format_title bbn-lg"
-                 :title="_('Title')"/>
-              <div :title="_('Title')"
-                   v-text="ev.title"/>
+        <div class="appui-vcs-project-info-body-block">
+          <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space bbn-right-space">
+            <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
+                  v-text="_('Last commits')"/>
+            <div class="bbn-top-sspace">
+              <appui-vcs-project-info-block v-for="(ev, idx) in lastCommits"
+                                            :key="idx"
+                                            :source="ev"
+                                            :margin="!!lastCommits[idx+1]"/>
             </div>
           </div>
         </div>
-        <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space bbn-right-space">
-          <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
-                v-text="_('Last events')"/>
-                <div class="bbn-top-sspace"></div>
+        <div class="appui-vcs-project-info-body-block">
+          <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space bbn-right-space">
+            <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
+                  v-text="_('Last events')"/>
+            <div class="bbn-top-sspace">
+              <appui-vcs-project-info-block v-for="(ev, idx) in lastEvents"
+                                            :key="idx"
+                                            :source="ev"
+                                            :margin="!!lastEvents[idx+1]"/>
+            </div>
+          </div>
         </div>
-        <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space bbn-right-space">
-          <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
-                v-text="_('Sub-modules')"/>
-                <div class="bbn-top-sspace"></div>
+        <div class="appui-vcs-project-info-body-block">
+          <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space">
+            <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
+                  v-text="_('Sub-modules')"/>
+                  <div class="bbn-top-sspace"></div>
+          </div>
         </div>
       </div>
     </div>
