@@ -103,40 +103,11 @@
                :title="_('Created at')"/>
         </div>
       </div>
-      <div class="appui-vcs-project-info-body bbn-flex">
-        <div class="appui-vcs-project-info-body-block">
-          <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space bbn-right-space">
-            <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
-                  v-text="_('Last commits')"/>
-            <div class="bbn-top-sspace">
-              <appui-vcs-project-info-block v-for="(ev, idx) in lastCommits"
-                                            :key="idx"
-                                            :source="ev"
-                                            :margin="!!lastCommits[idx+1]"/>
-            </div>
-          </div>
-        </div>
-        <div class="appui-vcs-project-info-body-block">
-          <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space bbn-right-space">
-            <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
-                  v-text="_('Last events')"/>
-            <div class="bbn-top-sspace">
-              <appui-vcs-project-info-block v-for="(ev, idx) in lastEvents"
-                                            :key="idx"
-                                            :source="ev"
-                                            :margin="!!lastEvents[idx+1]"/>
-            </div>
-          </div>
-        </div>
-        <div class="appui-vcs-project-info-body-block">
-          <div class="bbn-background bbn-radius bbn-padded bbn-bottom-space">
-            <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
-                  v-text="_('Sub-modules')"/>
-                  <div class="bbn-top-sspace"></div>
-          </div>
-        </div>
+      <div class="appui-vcs-project-info-body">
+        <bbn-masonry :source="widgets"
+                     :scrollable="false"
+                     :item-width="350"/>
       </div>
     </div>
   </bbn-scroll>
-  <!--<pre v-text="info"></pre>-->
 </div>

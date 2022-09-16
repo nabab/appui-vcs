@@ -1,4 +1,4 @@
-<div :class="['appui-vcs-project-info-block', 'bbn-alt-background', 'bbn-spadded', 'bbn-radius', {
+<div :class="['appui-vcs-project-info-widget-block', 'bbn-alt-background', 'bbn-spadded', 'bbn-radius', {
        'bbn-bottom-space': !!margin
      }]">
   <div class="bbn-flex-width">
@@ -13,7 +13,8 @@
       <template v-else>
         <span v-text="source.author.name"
               class="bbn-hxsmargin bbn-s"/>
-        <span class="bbn-s">(<span v-text="source.author.username"/>)</span>
+        <span v-if="!!source.author.username"
+              class="bbn-s">(<span v-text="source.author.username"/>)</span>
       </template>
     </div>
     <div v-text="mainPage.formatDate(source.created)"
@@ -30,10 +31,13 @@
          'bbn-vsmargin': !source.title
        }]"
        v-if="source.branch">
-    <i class="nf nf-mdi-source_branch bbn-lg bbn-right-xsspace"
+    <i class="nf nf-mdi-source_branch bbn-lg"
        :title="_('Branch')"/>
     <div :title="_('Branch')"
-         v-text="source.branch"/>
+         v-text="source.branch"
+         class="bbn-hxsmargin"/>
+    <i :title="_('Default branch')"
+       class="nf nf-fa-star bbn-lg bbn-primary-text-alt"/>
   </div>
   <div v-text="source.text"/>
 </div>
