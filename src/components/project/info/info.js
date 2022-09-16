@@ -32,7 +32,7 @@
         }, {
           component: 'appui-vcs-project-info-widget',
           source: {
-            title: bbn._('Last commits'),
+            title: bbn._('Last events'),
             items: this.lastEvents
           }
         }, {
