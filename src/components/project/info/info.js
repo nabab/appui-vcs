@@ -10,14 +10,20 @@
       creator(){
         return bbn.fn.getRow(this.source.users, 'id', this.source.creator);
       },
-      lastCommits(){
-        return this.source.commitsEvents.slice().splice(0, 5);
+      latestCommits(){
+        return bbn.fn.map(this.source.commitsEvents.slice().splice(0, 5), c => {
+          c.default = !!c.branch && (c.branch === this.source.defaultBranch);
+          return c;
+        });
       },
-      lastEvents(){
-        return bbn.fn.filter(this.source.events, e => e.type !== 'commit').splice(0, 5);
+      latestEvents(){
+        return bbn.fn.map(bbn.fn.filter(this.source.events, e => e.type !== 'commit').splice(0, 5), e => {
+          e.default = !!e.branch && (e.branch === this.source.defaultBranch);
+          return e;
+        });
       },
-      lastBranches(){
-        return bbn.fn.map(this.source.branches.splice(0, 5), b => {
+      latestBranchesActivities(){
+        return bbn.fn.map(this.source.branches.slice().splice(0, 5), b => {
           b.branch = b.name;
           return b;
         });
@@ -26,20 +32,20 @@
         return [{
           component: 'appui-vcs-project-info-widget',
           source: {
-            title: bbn._('Last commits'),
-            items: this.lastCommits
+            title: bbn._('Latest commits'),
+            items: this.latestCommits
           }
         }, {
           component: 'appui-vcs-project-info-widget',
           source: {
-            title: bbn._('Last events'),
-            items: this.lastEvents
+            title: bbn._('Latest events'),
+            items: this.latestEvents
           }
         }, {
           component: 'appui-vcs-project-info-widget',
           source: {
-            title: bbn._('Last branches'),
-            items: this.lastBranches
+            title: bbn._('Latest branches activities'),
+            items: this.latestBranchesActivities
           }
         }]
       }

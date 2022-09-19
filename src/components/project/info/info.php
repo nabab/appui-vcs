@@ -1,7 +1,7 @@
 <div class="appui-vcs-project-info bbn-alt-background bbn-overlay">
   <bbn-scroll>
     <div class="bbn-padded">
-      <div class="appui-vcs-project-info-header bbn-background bbn-radius bbn-padded bbn-bottom-space">
+      <div class="appui-vcs-project-info-header bbn-background bbn-radius bbn-padded bbn-bottom-space appui-vcs-box-shadow">
         <div class="bbn-flex-width bbn-vmiddle">
           <div :class="['appui-vcs-project-info-header-icon', 'bbn-middle', 'bbn-spadded', 'bbn-white', 'bbn-right-space', {
                  'appui-vcs-project-info-header-icon-git': isGit,

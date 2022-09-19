@@ -37,7 +37,8 @@
          v-text="source.branch"
          class="bbn-hxsmargin"/>
     <i :title="_('Default branch')"
-       class="nf nf-fa-star bbn-lg bbn-primary-text-alt"/>
+       class="nf nf-fa-star bbn-lg bbn-primary-text-alt"
+       v-if="!!source.default"/>
   </div>
   <div v-text="source.text"/>
 </div>

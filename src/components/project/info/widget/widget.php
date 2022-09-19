@@ -1,4 +1,4 @@
-<div class="appui-vcs-project-info-widget">
+<div class="appui-vcs-project-info-widget appui-vcs-box-shadow bbn-radius">
   <div class="bbn-background bbn-radius bbn-padded">
     <div class="bbn-b bbn-lg bbn-tertiary-text-alt bbn-upper"
           v-text="source.title"/>
