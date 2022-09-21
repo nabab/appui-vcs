@@ -14,7 +14,7 @@
         <span v-text="source.author.name"
               class="bbn-hxsmargin bbn-s"/>
         <span v-if="!!source.author.username"
-              class="bbn-s">(<span v-text="source.author.username"/>)</span>
+              class="bbn-s">(@<span v-text="source.author.username"/>)</span>
       </template>
     </div>
     <div v-text="mainPage.formatDate(source.created)"

@@ -17,7 +17,7 @@
       createServer(){
         this.getPopup({
           title: bbn._('New server'),
-          component: 'appui-vcs-form-server',
+          component: 'appui-vcs-server-new',
           width: 500,
           source: {
             name: '',
@@ -75,7 +75,8 @@
             <div :class="{'bbn-bordered-bottom': !!comp.getRef('serversList').currentData[index + 1]}">
               <bbn-button icon="nf nf-oct-settings"
                           class="bbn-secondary bbn-no-radius bbn-h-100 bbn-xl"
-                          @click.stop="edit"/>
+                          @click.stop="edit"
+                          :style="{'border-top-right-radius': !index ? '0.4rem !important' : 0}"/>
             </div>
           </div>
         `,
@@ -104,7 +105,7 @@
           edit(){
             this.getPopup({
               title: bbn._('Edit server'),
-              component: 'appui-vcs-form-server',
+              component: 'appui-vcs-server-new',
               width: 500,
               source: this.source
             });

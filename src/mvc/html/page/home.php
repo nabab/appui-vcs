@@ -1,14 +1,18 @@
-<div class="appui-vcs-home bbn-overlay">
-  <bbn-splitter class="appui-vcs-home-splitter">
+<div class="appui-vcs-home bbn-overlay bbn-alt-background">
+  <bbn-splitter class="appui-vcs-home-splitter"
+                style="grid-gap: 0 !important">
     <bbn-pane>
-      <div class="bbn-flex-height">
-        <div class="bbn-spadded bbn-c bbn-upper bbn-b bbn-m"><?=_('SERVERS LIST')?></div>
-        <bbn-toolbar class="bbn-no-border bbn-spadded">
-          <bbn-button :text="_('New server')"
-                      icon="nf nf-fa-plus"
-                      @click="createServer"/>
-        </bbn-toolbar>
-        <div class="bbn-flex-fill">
+      <div class="bbn-flex-height bbn-alt-background bbn-padded">
+        <div class="bbn-spadded bbn-background bbn-radius bbn-bottom-space appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
+          <div class="bbn-alt-background bbn-vmiddle bbn-xspadded bbn-radius bbn-flex-fill">
+            <bbn-button :text="_('Add server')"
+                        icon="nf nf-fa-plus"
+                        @click="createServer"/>
+          </div>
+          <div class="bbn-upper bbn-b bbn-lg bbn-tertiary-text-alt bbn-left-lspace bbn-right-space"
+              v-text="_('SERVERS LIST')"/>
+        </div>
+        <div class="bbn-flex-fill bbn-background bbn-radius appui-vcs-box-shadow">
           <bbn-scroll axis="y">
             <bbn-list :source="root + 'data/servers'"
                       :alternate-background="true"
@@ -24,15 +28,18 @@
       </div>
     </bbn-pane>
     <bbn-pane size="60%">
-    <div class="bbn-flex-height">
-        <div class="bbn-spadded bbn-c bbn-upper bbn-b bbn-m"><?=_('PROJECTS LIST')?></div>
-        <bbn-toolbar class="bbn-no-border bbn-spadded">
-          <bbn-button :text="_('New project')"
-                      icon="nf nf-fa-plus"
-                      :disabled="!selectedServer"
-                      @click="createProject"/>
-        </bbn-toolbar>
-        <div class="bbn-flex-fill">
+    <div class="bbn-flex-height bbn-alt-background bbn-padded">
+        <div class="bbn-spadded bbn-background bbn-radius bbn-bottom-space appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
+          <div class="bbn-alt-background bbn-vmiddle bbn-xspadded bbn-radius bbn-flex-fill">
+            <bbn-button :text="_('New project')"
+                        icon="nf nf-fa-plus"
+                        :disabled="!selectedServer"
+                        @click="createProject"/>
+          </div>
+          <div class="bbn-upper bbn-b bbn-lg bbn-tertiary-text-alt bbn-left-lspace bbn-right-space"
+              v-text="_('PROJECTS LIST')"/>
+        </div>
+        <div class="bbn-flex-fill bbn-background bbn-radius appui-vcs-box-shadow">
           <div class="bbn-flex-height">
             <div class="bbn-flex-fill">
               <bbn-scroll v-if="selectedServer"
@@ -56,11 +63,11 @@
                   class="bbn-middle bbn-overlay">
                 <i class="nf nf-fa-long_arrow_left bbn-xl bbn-right-space"/>
                 <span v-text="_('Select or create a server')"
-                    class="bbn-xl bbn-b"/>
+                      class="bbn-xl bbn-b bbn-secondary-text-alt"/>
               </div>
               <div v-if="projectsListReady && projectsListLoading"
                   class="bbn-overlay">
-                <bbn-loader/>
+                <bbn-loader class="appui-vcs-project-loader"/>
               </div>
             </div>
             <div>

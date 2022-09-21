@@ -1,1 +1,1 @@
-<div>ciao</div>
+<div class="appui-vcs-project-repositories">ciao</div>

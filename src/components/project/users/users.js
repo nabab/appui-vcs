@@ -2,7 +2,7 @@
   return {
     computed: {
       tableSource(){
-        return bbn.fn.order(this.source.users, 'name', 'asc');
+        return bbn.fn.order(this.source.members, 'name', 'asc');
       }
     },
     methods: {
@@ -11,7 +11,36 @@
       },
       renderDate(row, col){
         return dayjs(row[col.field]).format('DD/MM/YYYY HH:mm');
-      }
+      },
+      removeUser(row){
+        if (!!this.project.source.idServer
+          && !!this.project.source.id
+          && !!row.id
+        ) {
+          this.confirm(bbn._('Are you sure you want to remove the user "%s" from this project?', row.name), () => {
+            this.post(this.mainPage.root + 'actions/project/user/delete', {
+              serverID: this.project.source.idServer,
+              projectID: this.project.source.id,
+              userID: row.id
+            }, d => {
+              if (d.success) {
+                appui.success();
+                this.project.closest('bbn-container').reload();
+              }
+              else {
+                appui.error();
+              }
+            });
+          });
+        }
+      },
+      insertUser(){
+        this.getPopup({
+          component: 'appui-vcs-project-users-new',
+          title: bbn._('Add an user'),
+          width: 400
+        })
+      },
     },
     components: {
       avatar: {

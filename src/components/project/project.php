@@ -36,5 +36,13 @@
                     component="appui-vcs-project-users"
                     :source="source"
                     :notext="true"/>
+    <bbns-container url="issues"
+                    :static="true"
+                    :load="false"
+                    :title="_('Issues')"
+                    icon="nf nf-oct-issue_opened bbn-xxl"
+                    component="appui-vcs-project-issues"
+                    :source="source"
+                    :notext="true"/>
   </bbn-router>
 </div>

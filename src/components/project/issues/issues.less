@@ -1,0 +1,14 @@
+.appui-vcs-project-issues {
+  .appui-vcs-project-issues-sections {
+    grid-auto-flow: column;
+    grid-auto-rows: calc(100% - 1rem);
+    grid-column-gap: 1rem;
+    > div:not(.collapsed) {
+      min-width: 30rem;
+      > div {
+        border-top-left-radius: 0.4rem;
+        border-top-right-radius: 0.4rem;
+      }
+    }
+  }
+}

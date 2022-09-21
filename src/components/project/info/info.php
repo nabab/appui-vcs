@@ -29,7 +29,7 @@
                    @click="goToUsersPage">
                 <i class="nf nf-fa-users bbn-xxxl"/>
                 <div class="bbn-b"
-                     v-text="source.users.length"/>
+                     v-text="source.members.length"/>
               </div>
               <div class="bbn-c bbn-right-space"
                    style="color: gold"
@@ -101,6 +101,13 @@
              :title="_('Created at')"/>
           <div v-text="mainPage.formatDate(source.created)"
                :title="_('Created at')"/>
+          <i class="nf nf-mdi-source_branch bbn-lg"
+             :title="_('Default branch')"/>
+          <div :title="_('Default branch')"
+               class="bbn-vmiddle">
+            <div v-text="source.defaultBranch"/>
+            <i class="nf nf-fa-star bbn-lg bbn-primary-text-alt bbn-left-sspace"/>
+          </div>
         </div>
       </div>
       <div class="appui-vcs-project-info-body">

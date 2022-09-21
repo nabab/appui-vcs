@@ -1,18 +1,15 @@
 <div class="appui-vcs-project-branches bbn-alt-background bbn-overlay bbn-padded">
   <div class="bbn-100">
     <div class="bbn-overlay bbn-flex-height">
-      <div class="
-             bbn-upper
-             bbn-b
-             bbn-spadded
-             bbn-c
-             bbn-lg
-             bbn-tertiary-text-alt
-             bbn-background
-             bbn-radius
-             bbn-bottom-space
-             appui-vcs-box-shadow
-           "><?=_('Branches')?></div>
+      <div class="bbn-spadded bbn-background bbn-radius bbn-bottom-space appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
+        <div class="bbn-alt-background bbn-vmiddle bbn-xspadded bbn-radius bbn-flex-fill">
+          <bbn-button icon="nf nf-fa-plus"
+                      :text="_('Add')"
+                      @click="insertBranch"/>
+        </div>
+        <div class="bbn-upper bbn-b bbn-lg bbn-tertiary-text-alt bbn-left-lspace bbn-right-space"
+             v-text="_('Branches')"/>
+      </div>
       <div class="bbn-flex-fill">
         <bbn-table :source="tableSource"
                    class="bbn-background bbn-radius appui-vcs-box-shadow"

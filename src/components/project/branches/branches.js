@@ -12,6 +12,13 @@
       renderCreated(row){
         return dayjs(row.created).format('DD/MM/YYYY HH:mm');
       },
+      insertBranch(){
+        this.getPopup({
+          component: 'appui-vcs-project-branches-new',
+          title: bbn._('Create a new branch'),
+          width: 400
+        })
+      },
       removeBranch(row){
         if (!!this.project.source.idServer
           && !!this.project.source.id
