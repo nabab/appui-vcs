@@ -17,13 +17,18 @@
           title: bbn._('Opened'),
           items: this.opened
         }];
-        bbn.fn.each(this.source.labels, l => sec.push({
-          title: l.name,
-          items: bbn.fn.filter(this.issues, i => i.labels.includes(l.name))
-        }));
+        bbn.fn.each(this.source.labels, l => {
+          let items = bbn.fn.filter(this.issues, i => i.labels.includes(l.name));
+          sec.push({
+            title: l.name,
+            items: items,
+            collapsed: !items.length
+          });
+        });
         sec.push({
           title: bbn._('Closed'),
-          items: this.closed
+          items: this.closed,
+          collapsed: !this.closed.length
         });
         return sec;
       }
