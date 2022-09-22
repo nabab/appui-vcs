@@ -3,12 +3,21 @@
     padding-top: 0;
     grid-auto-flow: column;
     grid-column-gap: 1rem;
-    > div:not(.collapsed) {
-      min-width: 30rem;
-      > div {
-        border-top-left-radius: 0.4rem;
-        border-top-right-radius: 0.4rem;
+    grid-auto-columns: max-content;
+    .appui-vcs-project-issues-section {
+      &:not(.collapsed) {
+        min-width: 30rem;
+      }
+      &.collapsed {
+      }
+      .verticaltext {
+        text-orientation: upright;
+        writing-mode: vertical-lr;
+        letter-spacing: -0.2rem;
       }
     }
+  }
+  .bbn-radiobuttons > button.bbn-button:first-of-type {
+    border-radius: 0.4rem 0 0 0.4rem !important;
   }
 }

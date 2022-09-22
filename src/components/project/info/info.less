@@ -12,8 +12,12 @@
     }
   }
   .bbn-grid-fields {
+    display: grid;
     grid-column-gap: 0.8rem !important;
+    grid-row-gap: 0.5rem;
     align-items: center;
+    grid-template-columns: minmax(auto,max-content) auto;
+    clear: both;
   }
   .appui-vcs-project-info-useravatar {
     height: 1.2rem;
@@ -32,3 +36,5 @@
     }
   }
 }
+
+
