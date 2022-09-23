@@ -1,13 +1,21 @@
 <div class="appui-vcs-project-issues bbn-alt-background bbn-overlay">
   <div class="bbn-overlay bbn-flex-height">
     <div class="bbn-alt-background bbn-padded">
-      <div class="bbn-spadded bbn-background bbn-radius appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
-        <div class="bbn-alt-background bbn-vmiddle bbn-xspadded bbn-radius bbn-flex-fill"
-              style="min-height: 2rem">
-          <div class="bbn-vmiddle">
-            <div class="bbn-upper bbn-hmargin bbn-b bbn-secondary-text-alt"
+      <div class="bbn-spadded bbn-background bbn-radius appui-vcs-box-shadow bbn-vmiddle bbn-flex-width bbn-nowrap">
+        <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
+              style="min-height: 2rem; flex-wrap: wrap">
+          <div class="bbn-vmiddle bbn-right-padded bbn-bordered-right bbn-right-space bbn-vxsmargin">
+            <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
+                  v-text="_('Search')"/>
+            <div class="bbn-vmiddle">
+              <bbn-input v-model="currentSearch"
+                         button-right="nf nf-fa-search"/>
+            </div>
+          </div>
+          <div class="bbn-vmiddle bbn-right-padded bbn-bordered-right bbn-right-space bbn-vxsmargin">
+            <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
                   v-text="_('Filter')"/>
-            <div class="bbn-right-padded bbn-bordered-right bbn-right-space">
+            <div class="bbn-vmiddle">
               <bbn-radiobuttons :source="[{
                                   text: _('All'),
                                   value: 'all'
@@ -21,13 +29,19 @@
                                 v-model="currentFilter"/>
             </div>
           </div>
-          <bbn-button icon="nf nf-mdi-arrow_collapse"
-                      :text="_('Collapse all')"
-                      @click="collapseAll"
-                      class="bbn-right-sspace"/>
-          <bbn-button icon="nf nf-mdi-arrow_expand"
-                      :text="_('Expand all')"
-                      @click="expandAll"/>
+          <div class="bbn-vmiddle bbn-vxsmargin">
+            <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
+                  v-text="_('Cards')"/>
+            <div class="bbn-vmiddle">
+              <bbn-button icon="nf nf-mdi-arrow_collapse"
+                          :text="_('Collapse all')"
+                          @click="collapseAll"
+                          class="bbn-right-sspace"/>
+              <bbn-button icon="nf nf-mdi-arrow_expand"
+                          :text="_('Expand all')"
+                          @click="expandAll"/>
+            </div>
+          </div>
         </div>
         <div class="bbn-upper bbn-b bbn-lg bbn-tertiary-text-alt bbn-left-lspace bbn-right-space"
               v-text="_('Issues')"/>
@@ -108,15 +122,9 @@
                                     width="1.2rem"
                                     height="1.2rem"
                                     font-size="0.7rem"/>
-                        <span v-if="isYou(item.author.id)"
-                              class="bbn-left-xsspace bbn-s"
-                              v-text="_('You')"/>
-                        <template v-else>
-                          <span v-text="item.author.name"
-                                class="bbn-hxsmargin bbn-s"/>
-                          <span v-if="!!item.author.username"
-                                class="bbn-s">(@<span v-text="item.author.username"/>)</span>
-                        </template>
+                        <span class="bbn-left-xsspace bbn-s bbn-unselectable"
+                              v-text="isYou(item.author.id) ? _('You') : item.author.name"
+                              :title="item.author.username || item.author.name"/>
                       </div>
                       <div v-if="item.created === item.updated"
                            v-text="mainPage.formatDate(item.created)"
@@ -127,9 +135,74 @@
                            :title="_('Updated at')"
                            class="bbn-s"/>
                     </div>
-                    <div class="bbn-middle bbn-b bbn-vsmargin bbn-secondary-text-alt"
-                        v-if="item.title">
-                      <div v-text="item.title"/>
+                    <div class="bbn-middle bbn-vsmargin bbn-background bbn-radius bbn-spadded">
+                      <i class="nf nf-mdi-lock bbn-red bbn-right-sspace"
+                         :title="_('Private')"
+                         v-if="!!item.private"/>
+                      <div class="bbn-b bbn-secondary-text-alt bbn-upper"
+                           v-text="item.title"/>
+                    </div>
+                    <div class="bbn-vsmargin bbn-w-100"
+                         v-text="item.description"
+                         v-if="item.description"/>
+                    <div v-if="item.labels.length"
+                         class="bbn-vsmargin bbn-flex-width bbn-w-100">
+                      <i class="nf nf-mdi-label_outline bbn-lg bbn-right-sspace"/>
+                      <div class="bbn-flex-fill">
+                        <div v-for="(label, i) in item.labels"
+                             :class="['bbn-radius', 'bbn-xspadded', 'bbn-iblock ', 'bbn-bottom-sspace', 'bbn-s', {
+                               'bbn-right-sspace': !!item.labels[i+1]
+                             }]"
+                             v-text="label"
+                             :style="{
+                               backgroundColor: getLabelBackground(label),
+                               color: getLabelColor(label)
+                             }"/>
+                      </div>
+                    </div>
+                    <div class="bbn-grid"
+                         style="grid-template-columns: repeat(3, 1fr)">
+                      <div class="bbn-vmiddle"
+                           :title="numProperties(item.assigned) ? _('Assigned to') : _('Unassigned')">
+                        <i :class="['bbn-right-sspace', {
+                          'nf nf-mdi-account_star bbn-lg': numProperties(item.assigned),
+                          'nf nf-mdi-account_off': !numProperties(item.assigned)
+                        }]"/>
+                        <!--<span v-if="!numProperties(item.assigned)"
+                              v-text="_('Unassigned')"
+                              class="bbn-s"/>-->
+                        <bbn-button v-if="!numProperties(item.assigned)"
+                                    v-text="_('Assign')"
+                                    class="bbn-xs bbn-upper bbn-no-border"
+                                    style="padding-left: 0.5rem; padding-right: 0.5rem"/>
+                        <div v-else
+                             class="bbn-vmiddle">
+                          <bbn-initial :user-name="item.assigned.name"
+                                       width="1.2rem"
+                                       height="1.2rem"
+                                       font-size="0.7rem"/>
+                          <span class="bbn-left-xsspace bbn-s bbn-unselectable"
+                                v-text="isYou(item.assigned.id) ? _('You') : item.assigned.name"
+                                :title="item.assigned.username || item.assigned.name"/>
+                        </div>
+                      </div>
+                      <div :title="_('Comments')"
+                           class="bbn-vmiddle"
+                           style="justify-content: center">
+                        <i class="nf nf-fa-comments_o bbn-lg"/>
+                        <span v-text="item.notes"
+                              class="bbn-left-sspace"/>
+                      </div>
+                      <div :title="_('Tasks')"
+                           class="bbn-vmiddle"
+                           style="justify-content: flex-end">
+                        <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
+                        <span v-text="item.tasks.completed"
+                              class="bbn-left-sspace bbn-right-space"/>
+                        <i class="nf nf-mdi-playlist_remove bbn-lg bbn-red"/>
+                        <span v-text="item.tasks.count - item.tasks.completed"
+                              class="bbn-left-sspace"/>
+                      </div>
                     </div>
                   </div>
                 </bbn-scroll>

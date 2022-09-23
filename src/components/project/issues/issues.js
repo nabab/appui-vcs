@@ -4,7 +4,8 @@
       return {
         ready: false,
         issues: [],
-        currentFilter: 'all'
+        currentFilter: 'all',
+        currentSearch: ''
       }
     },
     computed: {
@@ -13,21 +14,60 @@
         return !!info ? info.id : null;
       },
       filters(){
+        let filters = {
+          logic: 'AND',
+          conditions: []
+        };
         if (this.yourUserID) {
           switch (this.currentFilter) {
             case 'mine':
-              return {'author.id': this.yourUserID};
+              filters.conditions.push({
+                field: 'author.id',
+                operator: '=',
+                value: this.yourUserID
+              });
+              break;
             case 'assigned':
-              return {'assigned.id': this.yourUserID};
-            }
+              filters.conditions.push({
+                field: 'assigned.id',
+                operator: '=',
+                value: this.yourUserID
+              });
+              break;
           }
-        return {};
+        }
+        if (this.currentSearch.length) {
+          filters.conditions.push({
+            logic: 'OR',
+            conditions: [{
+              field: 'title',
+              operator: 'contains',
+              value: this.currentSearch
+            }, {
+              field: 'description',
+              operator: 'contains',
+              value: this.currentSearch
+            }, {
+              field: 'author.name',
+              operator: 'contains',
+              value: this.currentSearch
+            }, {
+              field: 'assigned.name',
+              operator: 'contains',
+              value: this.currentSearch
+            }]
+          });
+        }
+        return filters;
+      },
+      filteredIssues(){
+        return bbn.fn.filter(this.issues, this.filters);
       },
       opened(){
-        return bbn.fn.filter(this.issues, bbn.fn.extend({state: 'opened'}, this.filters));
+        return bbn.fn.filter(this.filteredIssues, {state: 'opened'});
       },
       closed(){
-        return bbn.fn.filter(this.issues, bbn.fn.extend({state: 'closed'}, this.filters));
+        return bbn.fn.filter(this.filteredIssues, {state: 'closed'});
       },
       sections(){
         let sec = [{
@@ -38,10 +78,7 @@
           fontColor: null
         }];
         bbn.fn.each(this.source.labels, l => {
-          let items = bbn.fn.filter(this.issues, i => i.labels.includes(l.name));
-          if (bbn.fn.numProperties(this.filters)) {
-            items = bbn.fn.filter(items, this.filters);
-          }
+          let items = bbn.fn.filter(this.filteredIssues, i => i.labels.includes(l.name));
           sec.push({
             title: l.name,
             items: items,
@@ -61,6 +98,7 @@
       }
     },
     methods: {
+      numProperties: bbn.fn.numProperties,
       refreshList(){
         this.post(this.mainPage.root + 'data/project/issues', {
           serverID: this.source.idServer,
@@ -94,6 +132,12 @@
       },
       isYou(idUser){
         return this.yourUserID === idUser;
+      },
+      getLabelBackground(label){
+        return bbn.fn.getField(this.source.labels, 'backgroundColor', 'name', label);
+      },
+      getLabelColor(label){
+        return bbn.fn.getField(this.source.labels, 'fontColor', 'name', label);
       }
     },
     created(){
