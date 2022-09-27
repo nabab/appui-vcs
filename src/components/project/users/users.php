@@ -33,18 +33,18 @@
                        :render="renderName"/>
           <bbns-column field="role"
                        :title="_('Role')"
-                       :width="180"
+                       :width="120"
                        cls="bbn-c"/>
           <bbns-column field="created"
                        :title="_('At')"
                        group="added"
-                       :width="180"
+                       :width="130"
                        cls="bbn-c"
                        :render="renderDate"/>
           <bbns-column field="author"
                        :title="_('By')"
                        group="added"
-                       :width="240"
+                       :width="200"
                        :component="$options.components.author"/>
           <bbns-column :buttons="[{
                          text: _('Delete'),

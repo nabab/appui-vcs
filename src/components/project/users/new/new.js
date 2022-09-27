@@ -37,7 +37,7 @@
       },
       formData(){
         return {
-          serverID: this.project.source.idServer,
+          serverID: this.project.source.server.id,
           projectID: this.project.source.id
         }
       }

@@ -20,14 +20,14 @@
         })
       },
       removeBranch(row){
-        if (!!this.project.source.idServer
+        if (!!this.project.source.server.id
           && !!this.project.source.id
           && !!row.name
           && row.name.length
         ) {
           this.confirm(bbn._('Are you sure you want to delete the branch "%s"?', row.name), () => {
             this.post(this.mainPage.root + 'actions/project/branch/delete', {
-              serverID: this.project.source.idServer,
+              serverID: this.project.source.server.id,
               projectID: this.project.source.id,
               branch: row.name
             }, d => {

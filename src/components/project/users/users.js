@@ -13,13 +13,13 @@
         return dayjs(row[col.field]).format('DD/MM/YYYY HH:mm');
       },
       removeUser(row){
-        if (!!this.project.source.idServer
+        if (!!this.project.source.server.id
           && !!this.project.source.id
           && !!row.id
         ) {
           this.confirm(bbn._('Are you sure you want to remove the user "%s" from this project?', row.name), () => {
             this.post(this.mainPage.root + 'actions/project/user/delete', {
-              serverID: this.project.source.idServer,
+              serverID: this.project.source.server.id,
               projectID: this.project.source.id,
               userID: row.id
             }, d => {
@@ -40,7 +40,7 @@
           title: bbn._('Add an user'),
           width: 400
         })
-      },
+      }
     },
     components: {
       avatar: {

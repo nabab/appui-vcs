@@ -7,6 +7,7 @@
       }
     },
     methods: {
+      isMobile: bbn.fn.isMobile,
       formatDate(date){
         return dayjs(date).format('DD/MM/YY HH:mm');
       }

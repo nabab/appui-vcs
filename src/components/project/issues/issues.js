@@ -78,7 +78,7 @@
           fontColor: null
         }];
         bbn.fn.each(this.source.labels, l => {
-          let items = bbn.fn.filter(this.filteredIssues, i => i.labels.includes(l.name));
+          let items = bbn.fn.filter(this.opened, i => i.labels.includes(l.name));
           sec.push({
             title: l.name,
             items: items,
@@ -95,13 +95,16 @@
           fontColor: null
         });
         return sec;
+      },
+      assignList(){
+
       }
     },
     methods: {
       numProperties: bbn.fn.numProperties,
       refreshList(){
         this.post(this.mainPage.root + 'data/project/issues', {
-          serverID: this.source.idServer,
+          serverID: this.source.server.id,
           projectID: this.source.id
         }, d => {
           if (d.success && bbn.fn.isArray(d.data)) {
@@ -138,10 +141,146 @@
       },
       getLabelColor(label){
         return bbn.fn.getField(this.source.labels, 'fontColor', 'name', label);
+      },
+      getMenuSource(item){
+        let menu = [];
+        if (item.state === 'opened') {
+          menu.push({
+            text: bbn._('Close'),
+            icon: 'nf nf-mdi-close_circle',
+            action: () => this.closeIssue(item)
+          });
+        }
+        if (item.state === 'closed') {
+          menu.push({
+            text: bbn._('Reopen'),
+            icon: 'nf nf-mdi-close_circle',
+            action: () => this.reopenIssue(item)
+          });
+        }
+        return menu;
+      },
+      closeIssue(item){
+        if (item.state === 'opened') {
+          this.confirm(bbn._('Are you sure you want to close this issue?'), () => {
+            this.post(this.mainPage.root + '/actions/project/issue/close', {
+              serverID: this.project.source.server.id,
+              projectID: this.project.source.id,
+              issueID: item.id
+            }, d => {
+              if (d.success && d.data) {
+                bbn.fn.iterate(d.data, (v, k) => {
+                  this.$set(item, k, v);
+                });
+                appui.success();
+              }
+              else {
+                appui.error();
+              }
+            });
+          });
+        }
+      },
+      reopenIssue(item){
+        if (item.state === 'closed') {
+          this.confirm(bbn._('Are you sure you want to reopen this issue?'), () => {
+            this.post(this.mainPage.root + '/actions/project/issue/reopen', {
+              serverID: this.project.source.server.id,
+              projectID: this.project.source.id,
+              issueID: item.id
+            }, d => {
+              if (d.success && d.data) {
+                bbn.fn.iterate(d.data, (v, k) => {
+                  this.$set(item, k, v);
+                });
+                appui.success();
+              }
+              else {
+                appui.error();
+              }
+            });
+          });
+        }
+      },
+      isClosed(item){
+        return item.state === 'closed';
+      },
+      getAssignmentList(item){
+        if (!this.isClosed(item)) {
+          let users = bbn.fn.map(bbn.fn.extend(true, [], bbn.fn.order(this.source.members, 'name', 'asc')), u => {
+            return {
+              idIssue: item.id,
+              id: u.id,
+              name: u.name,
+              username: u.username,
+              action: () => {
+                this.assignUser(item.id, u.id);
+              }
+            }
+          });
+          users.unshift({
+            idIssue: item.id,
+            id: 0,
+            name: bbn._('Remove assignment'),
+            action: () => {
+              this.assignUser(item.id, 0);
+            }
+          })
+          return this.numProperties(item.assigned) ? bbn.fn.filter(users, u => u.id !== item.assigned.id) : users;
+        }
+        return [];
+      },
+      assignUser(idIssue, idUser){
+        let issue = bbn.fn.getRow(this.issues, 'id', idIssue);
+        if (issue && !this.isClosed(issue)) {
+          this.post(this.mainPage.root + 'actions/project/issue/assign', {
+            serverID: this.project.source.server.id,
+            projectID: this.project.source.id,
+            issueID: idIssue,
+            userID: idUser
+          }, d => {
+            if (d.success && d.data) {
+              bbn.fn.iterate(d.data, (v, k) => {
+                this.$set(issue, k, v);
+              });
+              appui.success();
+            }
+            else {
+              appui.error();
+            }
+          });
+        }
       }
     },
     created(){
       this.refreshList();
+    },
+    components: {
+      assignUser: {
+        template: `
+          <div class="bbn-vmiddle bbn-spadded">
+            <template v-if="source.id">
+              <bbn-initial :user-name="source.name"
+                           width="1.2rem"
+                           height="1.2rem"
+                           font-size="0.7rem"/>
+              <span class="bbn-left-xsspace"
+                    v-text="source.name"/>
+              <span class="bbn-i bbn-left-xsspace">(<span v-text="source.username"/>)</span>
+            </template>
+            <div v-else>
+              <i class="nf nf-mdi-account_remove bbn-red bbn-lg"/>
+              <span v-text="source.name"
+                    class="bbn-left-xsspace"/>
+            </div>
+          </div>
+        `,
+        props: {
+          source: {
+            type: Object
+          }
+        }
+      }
     }
   }
 })();

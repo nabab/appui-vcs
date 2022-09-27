@@ -1,10 +1,15 @@
 <div class="appui-vcs-project-issues bbn-alt-background bbn-overlay">
   <div class="bbn-overlay bbn-flex-height">
     <div class="bbn-alt-background bbn-padded">
-      <div class="bbn-spadded bbn-background bbn-radius appui-vcs-box-shadow bbn-vmiddle bbn-flex-width bbn-nowrap">
+      <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'appui-vcs-box-shadow', 'bbn-vmiddle', 'bbn-nowrap', {
+             'bbn-flex-width': !mainPage.isMobile(),
+             'bbn-flex-height': !!mainPage.isMobile()
+           }]">
         <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
               style="min-height: 2rem; flex-wrap: wrap">
-          <div class="bbn-vmiddle bbn-right-padded bbn-bordered-right bbn-right-space bbn-vxsmargin">
+          <div :class="[{
+                 'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
+               }, 'bbn-vxsmargin']">
             <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
                   v-text="_('Search')"/>
             <div class="bbn-vmiddle">
@@ -12,7 +17,9 @@
                          button-right="nf nf-fa-search"/>
             </div>
           </div>
-          <div class="bbn-vmiddle bbn-right-padded bbn-bordered-right bbn-right-space bbn-vxsmargin">
+          <div :class="[{
+                 'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile()
+               }, 'bbn-vxsmargin']">
             <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
                   v-text="_('Filter')"/>
             <div class="bbn-vmiddle">
@@ -29,7 +36,7 @@
                                 v-model="currentFilter"/>
             </div>
           </div>
-          <div class="bbn-vmiddle bbn-vxsmargin">
+          <div :class="[{'bbn-vmiddle': !mainPage.isMobile()}, 'bbn-vxsmargin']">
             <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
                   v-text="_('Cards')"/>
             <div class="bbn-vmiddle">
@@ -43,7 +50,10 @@
             </div>
           </div>
         </div>
-        <div class="bbn-upper bbn-b bbn-lg bbn-tertiary-text-alt bbn-left-lspace bbn-right-space"
+        <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-tertiary-text-alt', {
+               'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
+               'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
+             }]"
               v-text="_('Issues')"/>
       </div>
     </div>
@@ -114,8 +124,8 @@
                  class="bbn-flex-fill bbn-padded">
               <div class="bbn-100">
                 <bbn-scroll axis="y">
-                  <div v-for="(item, idx) in sec.items"
-                        :class="['bbn-radius', 'bbn-alt-background', 'bbn-spadded', {'bbn-bottom-space': !!sec.items[idx+1]}]">
+                  <div v-for="(item, sidx) in sec.items"
+                        :class="['bbn-radius', 'bbn-alt-background', 'bbn-spadded', {'bbn-bottom-space': !!sec.items[sidx+1]}]">
                     <div class="bbn-flex-width">
                       <div class="bbn-vmiddle bbn-flex-fill">
                         <bbn-initial :user-name="item.author.name"
@@ -135,16 +145,24 @@
                            :title="_('Updated at')"
                            class="bbn-s"/>
                     </div>
-                    <div class="bbn-middle bbn-vsmargin bbn-background bbn-radius bbn-spadded">
-                      <i class="nf nf-mdi-lock bbn-red bbn-right-sspace"
-                         :title="_('Private')"
-                         v-if="!!item.private"/>
-                      <div class="bbn-b bbn-secondary-text-alt bbn-upper"
-                           v-text="item.title"/>
+                    <div class="bbn-flex-width">
+                      <div class="bbn-middle bbn-vsmargin bbn-background bbn-radius bbn-spadded bbn-flex-fill">
+                        <i class="nf nf-mdi-lock bbn-red bbn-right-sspace"
+                           :title="_('Private')"
+                           v-if="!!item.private"/>
+                        <div class="bbn-b bbn-secondary-text-alt bbn-upper"
+                             v-text="item.title"/>
+                      </div>
+                      <div class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-xspadded bbn-vsmargin">
+                        <bbn-context :source="getMenuSource(item)">
+                          <i class="nf nf-mdi-dots_vertical bbn-p"/>
+                        </bbn-context>
+                      </div>
                     </div>
-                    <div class="bbn-vsmargin bbn-w-100"
-                         v-text="item.description"
-                         v-if="item.description"/>
+                    <pre class="bbn-vsmargin bbn-w-100"
+                         v-html="item.description"
+                         v-if="item.description"
+                         style="white-space: pre-line; font-family: inherit; font-size: inherit"/>
                     <div v-if="item.labels.length"
                          class="bbn-vsmargin bbn-flex-width bbn-w-100">
                       <i class="nf nf-mdi-label_outline bbn-lg bbn-right-sspace"/>
@@ -162,46 +180,65 @@
                     </div>
                     <div class="bbn-grid"
                          style="grid-template-columns: repeat(3, 1fr)">
-                      <div class="bbn-vmiddle"
-                           :title="numProperties(item.assigned) ? _('Assigned to') : _('Unassigned')">
-                        <i :class="['bbn-right-sspace', {
-                          'nf nf-mdi-account_star bbn-lg': numProperties(item.assigned),
-                          'nf nf-mdi-account_off': !numProperties(item.assigned)
-                        }]"/>
-                        <!--<span v-if="!numProperties(item.assigned)"
-                              v-text="_('Unassigned')"
-                              class="bbn-s"/>-->
-                        <bbn-button v-if="!numProperties(item.assigned)"
-                                    v-text="_('Assign')"
-                                    class="bbn-xs bbn-upper bbn-no-border"
-                                    style="padding-left: 0.5rem; padding-right: 0.5rem"/>
-                        <div v-else
-                             class="bbn-vmiddle">
-                          <bbn-initial :user-name="item.assigned.name"
-                                       width="1.2rem"
-                                       height="1.2rem"
-                                       font-size="0.7rem"/>
-                          <span class="bbn-left-xsspace bbn-s bbn-unselectable"
-                                v-text="isYou(item.assigned.id) ? _('You') : item.assigned.name"
-                                :title="item.assigned.username || item.assigned.name"/>
-                        </div>
+                      <div>
+                        <bbn-context :source="getAssignmentList(item)"
+                                     :style="{'pointer-events': isClosed(item) ? 'none' : ''}"
+                                     :item-component="$options.components.assignUser">
+                          <bbn-button class="bbn-background bbn-no-border"
+                                      :title="numProperties(item.assigned) ? _('Assigned to') : _('Unassigned')"
+                                      :style="{
+                                        'padding-left': '0.5rem',
+                                        'padding-right': '0.5rem',
+                                        'pointer-events': isClosed(item) ? 'none' : ''
+                                      }">
+                            <div class="bbn-vmiddle">
+                              <i :class="['bbn-right-sspace', {
+                                'nf nf-mdi-account_star bbn-lg': numProperties(item.assigned),
+                                'nf nf-mdi-account_off': !numProperties(item.assigned)
+                              }]"/>
+                              <span v-if="!numProperties(item.assigned)"
+                                    v-text="isClosed(item) ? _('Unassigned') : _('Assign')"
+                                    class="bbn-xs bbn-upper"/>
+                              <div v-else
+                                  class="bbn-vmiddle">
+                                <bbn-initial :user-name="item.assigned.name"
+                                             width="1.2rem"
+                                             height="1.2rem"
+                                             font-size="0.7rem"/>
+                                <span class="bbn-left-xsspace bbn-s bbn-unselectable"
+                                      v-text="isYou(item.assigned.id) ? _('You') : item.assigned.name"
+                                      :title="item.assigned.username || item.assigned.name"/>
+                              </div>
+                            </div>
+                          </bbn-button>
+                        </bbn-context>
                       </div>
-                      <div :title="_('Comments')"
-                           class="bbn-vmiddle"
+                      <div class="bbn-flex"
                            style="justify-content: center">
-                        <i class="nf nf-fa-comments_o bbn-lg"/>
-                        <span v-text="item.notes"
-                              class="bbn-left-sspace"/>
+                        <bbn-button :title="_('Comments')"
+                                    class="bbn-background bbn-no-border"
+                                    style="padding-left: 0.5rem; padding-right: 0.5rem">
+                          <div class="bbn-vmiddle">
+                            <i class="nf nf-fa-comments_o bbn-lg"/>
+                            <span v-text="item.notes"
+                                  class="bbn-left-sspace"/>
+                          </div>
+                        </bbn-button>
                       </div>
-                      <div :title="_('Tasks')"
-                           class="bbn-vmiddle"
+                      <div class="bbn-flex"
                            style="justify-content: flex-end">
-                        <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
-                        <span v-text="item.tasks.completed"
-                              class="bbn-left-sspace bbn-right-space"/>
-                        <i class="nf nf-mdi-playlist_remove bbn-lg bbn-red"/>
-                        <span v-text="item.tasks.count - item.tasks.completed"
-                              class="bbn-left-sspace"/>
+                        <bbn-button :title="_('Tasks')"
+                                    class="bbn-background bbn-no-border"
+                                    style="padding-left: 0.5rem; padding-right: 0.5rem">
+                          <div class="bbn-vmiddle">
+                            <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
+                            <span v-text="item.tasks.completed"
+                                  class="bbn-left-sspace bbn-right-space"/>
+                            <i class="nf nf-mdi-playlist_remove bbn-lg bbn-red"/>
+                            <span v-text="item.tasks.count - item.tasks.completed"
+                                  class="bbn-left-sspace"/>
+                          </div>
+                        </bbn-button>
                       </div>
                     </div>
                   </div>

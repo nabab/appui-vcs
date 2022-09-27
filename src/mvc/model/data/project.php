@@ -3,7 +3,7 @@ if ($model->hasData(['serverID', 'projectID'], true)) {
   return array_merge(
     $model->inc->vcs->getProject($model->data['serverID'], $model->data['projectID']),
     [
-      'idServer' => $model->data['serverID'],
+      'server' => $model->inc->vcs->getServer($model->data['serverID']),
       'branches' => $model->inc->vcs->getProjectBranches($model->data['serverID'], $model->data['projectID']),
       'tags' => $model->inc->vcs->getProjectTags($model->data['serverID'], $model->data['projectID']),
       'users' => $model->inc->vcs->getUsers($model->data['serverID']),

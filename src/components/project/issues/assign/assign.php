@@ -1,0 +1,1 @@
+<div class="appui-vcs-project-issues-assign"></div>

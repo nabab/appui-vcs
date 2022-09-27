@@ -11,7 +11,8 @@
                     icon="nf nf-fa-info bbn-m"
                     component="appui-vcs-project-info"
                     :source="source"
-                    :notext="true"/>
+                    :notext="true"
+                    :scrollable="false"/>
     <bbns-container url="files"
                     :static="true"
                     :load="false"
@@ -19,7 +20,8 @@
                     icon="nf nf-oct-repo"
                     component="appui-vcs-project-repositories"
                     :source="source"
-                    :notext="true"/>
+                    :notext="true"
+                    :scrollable="false"/>
     <bbns-container url="branches"
                     :static="true"
                     :load="false"
@@ -27,7 +29,8 @@
                     icon="nf nf-mdi-source_branch"
                     component="appui-vcs-project-branches"
                     :source="source"
-                    :notext="true"/>
+                    :notext="true"
+                    :scrollable="false"/>
     <bbns-container url="users"
                     :static="true"
                     :load="false"
@@ -35,7 +38,8 @@
                     icon="nf nf-mdi-account_multiple bbn-xxl"
                     component="appui-vcs-project-users"
                     :source="source"
-                    :notext="true"/>
+                    :notext="true"
+                    :scrollable="false"/>
     <bbns-container url="issues"
                     :static="true"
                     :load="false"
@@ -43,6 +47,7 @@
                     icon="nf nf-oct-issue_opened bbn-xxl"
                     component="appui-vcs-project-issues"
                     :source="source"
-                    :notext="true"/>
+                    :notext="true"
+                    :scrollable="false"/>
   </bbn-router>
 </div>
