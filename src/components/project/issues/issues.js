@@ -95,20 +95,23 @@
           fontColor: null
         });
         return sec;
-      },
-      assignList(){
-
       }
     },
     methods: {
       numProperties: bbn.fn.numProperties,
       refreshList(){
-        this.post(this.mainPage.root + 'data/project/issues', {
+        this.post(this.mainPage.root + 'data/project/issues/list', {
           serverID: this.source.server.id,
           projectID: this.source.id
         }, d => {
           if (d.success && bbn.fn.isArray(d.data)) {
-            this.issues.splice(0, this.issues.length, ...d.data);
+            this.issues.splice(0, this.issues.length, ...bbn.fn.map(d.data, issue => {
+              issue.descriptionHtml = issue.description.replace(
+                /\!\[[a-zA-Z0-9\/\.\-\_]+\]\({1}([a-zA-Z0-9\/\.\-\_]+\.{1}(jpg|png|jpeg){1})\){1}/gm,
+                '<img class="appui-vcs-project-issues-img" src="' + this.source.server.host + '/' + this.source.fullpath + '/$1">'
+              );
+              return issue;
+            }));
           }
           this.ready = true;
         });
@@ -205,7 +208,7 @@
       isClosed(item){
         return item.state === 'closed';
       },
-      getAssignmentList(item){
+      getAssignmentList(idx, item){
         if (!this.isClosed(item)) {
           let users = bbn.fn.map(bbn.fn.extend(true, [], bbn.fn.order(this.source.members, 'name', 'asc')), u => {
             return {
@@ -250,6 +253,15 @@
             }
           });
         }
+      },
+      openComments(issue){
+        this.getPopup({
+          title: bbn._('Comments'),
+          width: '80%',
+          height: '80%',
+          component: 'appui-vcs-project-issues-comments',
+          source: issue
+        });
       }
     },
     created(){

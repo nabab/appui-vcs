@@ -60,7 +60,10 @@
     <div class="bbn-flex-fill">
       <bbn-scroll axis="x">
         <div class="appui-vcs-project-issues-sections bbn-grid bbn-h-100 bbn-padded"
-             v-if="ready">
+             v-if="ready
+              && !!sections
+              && sections.length
+              && !!filters">
           <div v-for="(sec, idx) in sections"
                :class="[
                  'appui-vcs-project-issues-section',
@@ -125,7 +128,15 @@
               <div class="bbn-100">
                 <bbn-scroll axis="y">
                   <div v-for="(item, sidx) in sec.items"
-                        :class="['bbn-radius', 'bbn-alt-background', 'bbn-spadded', {'bbn-bottom-space': !!sec.items[sidx+1]}]">
+                        :class="[
+                          'appui-vcs-project-issues-issue',
+                          'bbn-radius',
+                          'bbn-alt-background',
+                          'bbn-spadded',
+                          {
+                            'bbn-bottom-space': !!sec.items[sidx+1]
+                          }
+                        ]">
                     <div class="bbn-flex-width">
                       <div class="bbn-vmiddle bbn-flex-fill">
                         <bbn-initial :user-name="item.author.name"
@@ -159,10 +170,9 @@
                         </bbn-context>
                       </div>
                     </div>
-                    <pre class="bbn-vsmargin bbn-w-100"
-                         v-html="item.description"
-                         v-if="item.description"
-                         style="white-space: pre-line; font-family: inherit; font-size: inherit"/>
+                    <pre class="bbn-vsmargin bbn-w-100 appui-vcs-project-issues-issue-text"
+                         v-html="item.descriptionHtml"
+                         v-if="item.descriptionHtml"/>
                     <div v-if="item.labels.length"
                          class="bbn-vsmargin bbn-flex-width bbn-w-100">
                       <i class="nf nf-mdi-label_outline bbn-lg bbn-right-sspace"/>
@@ -181,11 +191,12 @@
                     <div class="bbn-grid"
                          style="grid-template-columns: repeat(3, 1fr)">
                       <div>
-                        <bbn-context :source="getAssignmentList(item)"
+                        <bbn-context :source="getAssignmentList"
+                                     :data="item"
                                      :style="{'pointer-events': isClosed(item) ? 'none' : ''}"
                                      :item-component="$options.components.assignUser">
                           <bbn-button class="bbn-background bbn-no-border"
-                                      :title="numProperties(item.assigned) ? _('Assigned to') : _('Unassigned')"
+                                      :title="!!numProperties(item.assigned) ? _('Assigned to') : _('Unassigned')"
                                       :style="{
                                         'padding-left': '0.5rem',
                                         'padding-right': '0.5rem',
@@ -193,7 +204,7 @@
                                       }">
                             <div class="bbn-vmiddle">
                               <i :class="['bbn-right-sspace', {
-                                'nf nf-mdi-account_star bbn-lg': numProperties(item.assigned),
+                                'nf nf-mdi-account_star bbn-lg': !!numProperties(item.assigned),
                                 'nf nf-mdi-account_off': !numProperties(item.assigned)
                               }]"/>
                               <span v-if="!numProperties(item.assigned)"
@@ -217,7 +228,8 @@
                            style="justify-content: center">
                         <bbn-button :title="_('Comments')"
                                     class="bbn-background bbn-no-border"
-                                    style="padding-left: 0.5rem; padding-right: 0.5rem">
+                                    style="padding-left: 0.5rem; padding-right: 0.5rem"
+                                    @click="openComments(item)">
                           <div class="bbn-vmiddle">
                             <i class="nf nf-fa-comments_o bbn-lg"/>
                             <span v-text="item.notes"
@@ -231,12 +243,19 @@
                                     class="bbn-background bbn-no-border"
                                     style="padding-left: 0.5rem; padding-right: 0.5rem">
                           <div class="bbn-vmiddle">
-                            <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
-                            <span v-text="item.tasks.completed"
-                                  class="bbn-left-sspace bbn-right-space"/>
-                            <i class="nf nf-mdi-playlist_remove bbn-lg bbn-red"/>
-                            <span v-text="item.tasks.count - item.tasks.completed"
-                                  class="bbn-left-sspace"/>
+                            <template v-if="item.tasks.count">
+                              <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
+                              <span v-text="item.tasks.completed"
+                                    class="bbn-left-sspace bbn-right-space"/>
+                              <i class="nf nf-mdi-playlist_remove bbn-lg bbn-red"/>
+                              <span v-text="item.tasks.count - item.tasks.completed"
+                                    class="bbn-left-sspace"/>
+                            </template>
+                            <template v-else>
+                              <i class="bbn-right-sspace nf nf-mdi-format_list_checks bbn-lg"/>
+                              <span v-text="_('No tasks')"
+                                    class="bbn-upper bbn-xs"/>
+                            </template>
                           </div>
                         </bbn-button>
                       </div>
