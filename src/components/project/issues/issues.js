@@ -9,10 +9,6 @@
       }
     },
     computed: {
-      yourUserID(){
-        let info = bbn.fn.getField(this.project.source.appui.users, 'info', 'id', appui.app.user.id);
-        return !!info ? info.id : null;
-      },
       filters(){
         let filters = {
           logic: 'AND',
@@ -257,8 +253,8 @@
       openComments(issue){
         this.getPopup({
           title: bbn._('Comments'),
-          width: '80%',
-          height: '80%',
+          width: '90%',
+          height: '90%',
           component: 'appui-vcs-project-issues-comments',
           source: issue
         });

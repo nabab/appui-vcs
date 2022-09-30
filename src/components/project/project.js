@@ -15,6 +15,10 @@
       },
       root(){
         return !!this.mainPage ? this.mainPage.root : '';
+      },
+      yourUserID(){
+        let info = bbn.fn.getField(this.project.source.appui.users, 'info', 'id', appui.app.user.id);
+        return !!info ? info.id : null;
       }
     },
     created(){

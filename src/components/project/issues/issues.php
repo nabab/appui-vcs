@@ -128,15 +128,15 @@
               <div class="bbn-100">
                 <bbn-scroll axis="y">
                   <div v-for="(item, sidx) in sec.items"
-                        :class="[
-                          'appui-vcs-project-issues-issue',
-                          'bbn-radius',
-                          'bbn-alt-background',
-                          'bbn-spadded',
-                          {
-                            'bbn-bottom-space': !!sec.items[sidx+1]
-                          }
-                        ]">
+                       :class="[
+                         'appui-vcs-project-issues-issue',
+                         'bbn-radius',
+                         'bbn-alt-background',
+                         'bbn-spadded',
+                         {
+                           'bbn-bottom-space': !!sec.items[sidx+1]
+                         }
+                       ]">
                     <div class="bbn-flex-width">
                       <div class="bbn-vmiddle bbn-flex-fill">
                         <bbn-initial :user-name="item.author.name"
