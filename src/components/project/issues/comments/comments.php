@@ -1,57 +1,110 @@
-<div class="appui-vcs-project-issues-comments bbn-background bbn-overlay">
-  <bbn-scroll axis="y">
+<div class="appui-vcs-project-issues-comments bbn-background bbn-overlay bbn-flex-height">
+  <div v-if="isLoading"
+       class="bbn-flex-fill">
+    <bbn-loader class="bbn-radius"
+                style="background-color: var(--default-background)"/>
+  </div>
+  <template v-else>
     <div class="bbn-padded">
-      <div v-for="(item, idx) in comments"
-            :class="[
-              'bbn-w-100',
-              'bbn-radius',
-              'bbn-alt-background',
-              'bbn-spadded',
-              'appui-vcs-box-shadow',
-              {
-                'bbn-bottom-space': !!comments[idx+1]
-              }
-            ]">
-        <div class="bbn-flex-width">
-          <div class="bbn-vmiddle bbn-flex-fill">
-            <bbn-initial :user-name="item.author.name"
-                          width="1.2rem"
-                          height="1.2rem"
-                          font-size="0.7rem"/>
-            <span class="bbn-left-xsspace bbn-s bbn-unselectable"
-                  v-text="isYou(item.author.id) ? _('You') : item.author.name"
-                  :title="item.author.username || item.author.name"/>
+      <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'appui-vcs-box-shadow', 'bbn-vmiddle', 'bbn-nowrap', {
+              'bbn-flex-width': !mainPage.isMobile(),
+              'bbn-flex-height': !!mainPage.isMobile()
+            }]">
+        <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
+              style="min-height: 2rem; flex-wrap: wrap">
+          <div :class="[{
+                  'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
+                }, 'bbn-vxsmargin']">
+            <bbn-button :text="_('New comment')"
+                        icon="nf nf-mdi-comment_plus_outline"
+                        @click="newComment"/>
           </div>
-          <div v-if="item.created === item.updated"
-                v-text="mainPage.formatDate(item.created)"
-                :title="_('Created at')"
-                class="bbn-s"/>
-          <div v-else
-                v-text="mainPage.formatDate(item.updated)"
-                :title="_('Updated at')"
-                class="bbn-s"/>
         </div>
-        <div class="bbn-flex-width">
-          <div class="bbn-vmiddle bbn-vsmargin bbn-background bbn-radius bbn-spadded bbn-flex-fill">
-            <pre class="bbn-no-margin appui-vcs-project-issues-comments-comment-text"
-                 v-html="item.contentHtml"
-                 v-if="item.contentHtml"/>
-          </div>
-          <div v-if="!!item.private"
-               class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-xspadded bbn-vsmargin">
-            <i class="nf nf-mdi-lock bbn-red"
-               :title="_('Private')"/>
-          </div>
-          <div class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-hxspadded bbn-vspadded bbn-vsmargin"
-               style="height: max-content">
-            <bbn-context :source="getMenuSource"
-                         :data="item"
-                         :sourceIndex="idx">
-              <i class="nf nf-mdi-dots_vertical bbn-p"/>
-            </bbn-context>
-          </div>
+        <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-tertiary-text-alt', {
+                'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
+                'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
+              }]"
+              v-text="_('Comments')"/>
+        <div>
+          <bbn-button class="bbn-no-border"
+                      icon="nf nf-fa-close bbn-lg"
+                      @click="currentPopup.close(currentPopup.items.length - 1, true)"/>
         </div>
       </div>
     </div>
-  </bbn-scroll>
+    <div class="bbn-flex-fill">
+      <bbn-scroll axis="y"
+                  ref="scroll">
+        <div class="bbn-padded bbn-w-100">
+          <div v-for="(item, idx) in comments"
+                :class="[
+                  'bbn-w-100',
+                  'bbn-radius',
+                  'bbn-spadded',
+                  'appui-vcs-box-shadow',
+                  {
+                    'bbn-alt-background': !item.auto,
+                    'bbn-tertiary': !!item.auto,
+                    'bbn-bottom-lspace': !!comments[idx+1]
+                  }
+                ]">
+            <div class="bbn-flex-width">
+              <div class="bbn-vmiddle bbn-flex-fill">
+                <bbn-initial :user-name="item.author.name"
+                              width="1.2rem"
+                              height="1.2rem"
+                              font-size="0.7rem"/>
+                <span class="bbn-left-xsspace bbn-s bbn-unselectable"
+                      v-text="isYou(item.author.id) ? _('You') : item.author.name"
+                      :title="item.author.username || item.author.name"/>
+              </div>
+              <div v-if="item.created === item.updated"
+                    v-text="mainPage.formatDate(item.created)"
+                    :title="_('Created at')"
+                    class="bbn-s"/>
+              <div v-else
+                    v-text="mainPage.formatDate(item.updated)"
+                    :title="_('Updated at')"
+                    class="bbn-s"/>
+            </div>
+            <div class="bbn-flex-width">
+              <div class="bbn-vmiddle bbn-top-sspace bbn-background bbn-radius bbn-spadded bbn-flex-fill">
+                <pre :class="['bbn-no-margin', 'appui-vcs-project-issues-comments-comment-text', {
+                      'appui-vcs-project-issues-comments-capitalize': !!item.auto,
+                      'bbn-tertiary-text-alt': !!item.auto
+                    }]"
+                    v-html="item.contentHtml"
+                    v-if="item.contentHtml"/>
+              </div>
+              <div v-if="!!item.private"
+                  class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-xspadded bbn-vsmargin">
+                <i class="nf nf-mdi-lock bbn-red"
+                  :title="_('Private')"/>
+              </div>
+              <div class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-hxspadded bbn-vspadded bbn-vsmargin"
+                  style="height: max-content"
+                  v-if="!item.auto">
+                <bbn-context :source="getMenuSource"
+                            :data="item"
+                            :sourceIndex="idx">
+                  <i class="nf nf-mdi-dots_vertical bbn-p"/>
+                </bbn-context>
+              </div>
+            </div>
+          </div>
+          <div v-if="commentForm"
+              class="bbn-w-100 bbn-radius bbn-spadded appui-vcs-box-shadow bbn-alt-background bbn-top-lspace">
+            <bbn-form :source="formSource"
+                      :action="mainPage.root + 'actions/comment/insert'"
+                      :windowed="false"
+                      @success="">
+              <bbn-rte height="30rem"
+                      v-model="formSource.content"
+                      @ready="scrollEnd"/>
+            </bbn-form>
+          </div>
+        </div>
+      </bbn-scroll>
+    </div>
+  </template>
 </div>

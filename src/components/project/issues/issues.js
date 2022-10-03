@@ -157,6 +157,11 @@
             action: () => this.reopenIssue(item)
           });
         }
+        menu.push({
+          text: bbn._('Open in new window'),
+          icon: 'nf nf-fa-window_maximize',
+          action: () => this.openComment(item)
+        });
         return menu;
       },
       closeIssue(item){
@@ -250,9 +255,20 @@
           });
         }
       },
+      openComment(issue){
+        this.getPopup({
+          title: false,
+          closable: false,
+          width: '90%',
+          height: '90%',
+          component: 'appui-vcs-project-issues-comment',
+          source: issue
+        });
+      },
       openComments(issue){
         this.getPopup({
-          title: bbn._('Comments'),
+          title: false,
+          closable: false,
           width: '90%',
           height: '90%',
           component: 'appui-vcs-project-issues-comments',
@@ -264,6 +280,38 @@
       this.refreshList();
     },
     components: {
+      issueDescription: {
+        name: 'issue-description',
+        template: `
+        <div class="bbn-vsmargin bbn-w-100">
+          <pre v-html="source.descriptionHtml"
+               class="appui-vcs-project-issues-issue-text"/>
+          <div class="bbn-c bbn-vmargin"
+               v-if="showZoom">
+            <bbn-button class="bbn-no-border bbn-upper bbn-xs"
+                        text="` + bbn._('Show more content') + `"
+                        @click="$emit('zoom', source)"/>
+          </div>
+        </div>
+        `,
+        props: {
+          source: {
+            type: Object
+          }
+        },
+        data(){
+          return {
+            showZoom: false
+          }
+        },
+        mounted(){
+          this.$nextTick(() => {
+            if (this.$el.clientHeight >= 600) {
+              this.showZoom = true;
+            }
+          });
+        }
+      },
       assignUser: {
         template: `
           <div class="bbn-vmiddle bbn-spadded">
