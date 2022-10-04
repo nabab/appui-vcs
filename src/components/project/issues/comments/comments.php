@@ -43,12 +43,13 @@
                   'bbn-spadded',
                   'appui-vcs-box-shadow',
                   {
-                    'bbn-alt-background': !item.auto,
+                    'bbn-alt-background': !item.auto && !item.private,
+                    'bbn-secondary': !!item.private,
                     'bbn-tertiary': !!item.auto,
                     'bbn-bottom-lspace': !!comments[idx+1]
                   }
                 ]">
-            <div class="bbn-flex-width">
+            <div class="bbn-flex-width bbn-vmiddle">
               <div class="bbn-vmiddle bbn-flex-fill">
                 <bbn-initial :user-name="item.author.name"
                               width="1.2rem"
@@ -58,6 +59,9 @@
                       v-text="isYou(item.author.id) ? _('You') : item.author.name"
                       :title="item.author.username || item.author.name"/>
               </div>
+              <i class="nf nf-mdi-lock bbn-red bbn-hsmargin"
+                 :title="_('Private')"
+                 v-if="item.private"/>
               <div v-if="item.created === item.updated"
                     v-text="mainPage.formatDate(item.created)"
                     :title="_('Created at')"
@@ -69,19 +73,17 @@
             </div>
             <div class="bbn-flex-width">
               <div class="bbn-vmiddle bbn-top-sspace bbn-background bbn-radius bbn-spadded bbn-flex-fill">
-                <pre :class="['bbn-no-margin', 'appui-vcs-project-issues-comments-comment-text', {
-                      'appui-vcs-project-issues-comments-capitalize': !!item.auto,
-                      'bbn-tertiary-text-alt': !!item.auto
-                    }]"
-                    v-html="item.contentHtml"
-                    v-if="item.contentHtml"/>
+                <comment-editor v-if="item.id === currentEdit"
+                                :source="item"/>
+                <pre v-else
+                     :class="['bbn-no-margin', 'appui-vcs-project-issues-comments-comment-text', {
+                       'appui-vcs-project-issues-comments-capitalize': !!item.auto,
+                       'bbn-secondary-text-alt': !!item.private,
+                       'bbn-tertiary-text-alt': !!item.auto
+                     }]"
+                     v-html="item.contentHtml"/>
               </div>
-              <div v-if="!!item.private"
-                  class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-xspadded bbn-vsmargin">
-                <i class="nf nf-mdi-lock bbn-red"
-                  :title="_('Private')"/>
-              </div>
-              <div class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-hxspadded bbn-vspadded bbn-vsmargin"
+              <div class="bbn-radius bbn-background bbn-text bbn-left-sspace bbn-middle bbn-hxspadded bbn-vspadded bbn-vsmargin"
                   style="height: max-content"
                   v-if="!item.auto">
                 <bbn-context :source="getMenuSource"
@@ -92,15 +94,31 @@
               </div>
             </div>
           </div>
-          <div v-if="commentForm"
+          <comment-editor v-if="commentForm"
+                          class="bbn-w-100 bbn-radius bbn-spadded appui-vcs-box-shadow bbn-alt-background bbn-top-lspace"
+                          :source="formSource"/>
+          <div v-if="commentForm === 2"
               class="bbn-w-100 bbn-radius bbn-spadded appui-vcs-box-shadow bbn-alt-background bbn-top-lspace">
             <bbn-form :source="formSource"
-                      :action="mainPage.root + 'actions/comment/insert'"
+                      :data="formData"
+                      :action="mainPage.root + 'actions/project/issue/comment/insert'"
                       :windowed="false"
-                      @success="">
+                      @success="onSuccess">
+              <div class="bbn-bottom-sspace bbn-vmiddle">
+                <i :class="{
+                     'nf nf-mdi-lock bbn-red': !!formSource.private,
+                     'nf nf-mdi-lock_open bbn-green': !formSource.private
+                   }"/>
+                <bbn-checkbox :label="_('Private')"
+                              v-model="formSource.private"
+                              :value="true"
+                              :novalue="false"
+                              class="bbn-left-sspace"/>
+              </div>
               <bbn-rte height="30rem"
                       v-model="formSource.content"
-                      @ready="scrollEnd"/>
+                      @ready="scrollEnd"
+                      :required="true"/>
             </bbn-form>
           </div>
         </div>

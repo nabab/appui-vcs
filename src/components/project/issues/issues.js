@@ -95,19 +95,24 @@
     },
     methods: {
       numProperties: bbn.fn.numProperties,
+      normalizeIssue(issue){
+        issue.descriptionHtml = issue.description.replace(
+          /\!\[[a-zA-Z0-9\/\.\-\_]+\]\({1}([a-zA-Z0-9\/\.\-\_]+\.{1}(jpg|png|jpeg){1})\){1}/gm,
+          '<img class="appui-vcs-project-issues-img" src="' + this.source.server.host + '/' + this.source.fullpath + '/$1">'
+        );
+        return issue;
+      },
       refreshList(){
         this.post(this.mainPage.root + 'data/project/issues/list', {
           serverID: this.source.server.id,
           projectID: this.source.id
         }, d => {
           if (d.success && bbn.fn.isArray(d.data)) {
-            this.issues.splice(0, this.issues.length, ...bbn.fn.map(d.data, issue => {
-              issue.descriptionHtml = issue.description.replace(
-                /\!\[[a-zA-Z0-9\/\.\-\_]+\]\({1}([a-zA-Z0-9\/\.\-\_]+\.{1}(jpg|png|jpeg){1})\){1}/gm,
-                '<img class="appui-vcs-project-issues-img" src="' + this.source.server.host + '/' + this.source.fullpath + '/$1">'
-              );
-              return issue;
-            }));
+            this.issues.splice(
+              0,
+              this.issues.length,
+              ...bbn.fn.map(d.data, this.normalizeIssue)
+            );
           }
           this.ready = true;
         });
