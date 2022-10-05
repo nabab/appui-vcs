@@ -168,7 +168,8 @@
               <bbn-rte height="30rem"
                        v-model="source.content"
                        :required="true"
-                       @ready="!source.id ? cp.scrollEnd() : false"/>
+                       @ready="!source.id ? cp.scrollEnd() : false"
+                       class="bbn-w-100"/>
             </bbn-form>
           </div>
         `,

@@ -71,7 +71,9 @@
           items: this.opened,
           collapsed: false,
           backgroundColor: null,
-          fontColor: null
+          fontColor: null,
+          label: false,
+          canAdd: true
         }];
         bbn.fn.each(this.source.labels, l => {
           let items = bbn.fn.filter(this.opened, i => i.labels.includes(l.name));
@@ -80,7 +82,9 @@
             items: items,
             collapsed: !items.length,
             backgroundColor: l.backgroundColor || '',
-            fontColor: l.fontColor || ''
+            fontColor: l.fontColor || '',
+            label: l,
+            canAdd: true
           });
         });
         sec.push({
@@ -88,7 +92,9 @@
           items: this.closed,
           collapsed: !this.closed.length,
           backgroundColor: null,
-          fontColor: null
+          fontColor: null,
+          label: false,
+          canAdd: false
         });
         return sec;
       }
@@ -279,6 +285,16 @@
           component: 'appui-vcs-project-issues-comments',
           source: issue
         });
+      },
+      addIssue(section){
+        this.getPopup({
+          title: false,
+          closable: false,
+          width: '90%',
+          height: '90%',
+          component: 'appui-vcs-project-issues-issue',
+          source: section
+        });
       }
     },
     created(){
@@ -290,7 +306,7 @@
         template: `
         <div class="bbn-vsmargin bbn-w-100">
           <pre v-html="source.descriptionHtml"
-               class="appui-vcs-project-issues-issue-text"/>
+               class="appui-vcs-project-issues-item-text"/>
           <div class="bbn-c bbn-vmargin"
                v-if="showZoom">
             <bbn-button class="bbn-no-border bbn-upper bbn-xs"

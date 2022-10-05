@@ -97,11 +97,16 @@
                   v-text="sec.title"
                   :style="{color: !!sec.fontColor ? sec.fontColor + '!important' : ''}"/>
             <div class="bbn-alt-background bbn-vmiddle bbn-xspadded bbn-radius bbn-flex-fill"
-                  :style="{
-                    'min-height': '2rem',
-                    'justify-content': 'flex-end',
-                    'align-items': !!sec.collapsed ? 'flex-end': ''
-                  }">
+                 :style="{
+                   'min-height': '2rem',
+                   'justify-content': 'flex-end',
+                   'align-items': !!sec.collapsed ? 'flex-end': ''
+                 }">
+              <bbn-button v-if="!sec.collapsed && sec.canAdd"
+                          icon="nf nf-fa-plus"
+                          :title="_('Add issue')"
+                          class="bbn-no-border bbn-right-sspace"
+                          @click="addIssue(sec)"/>
               <div :class="['bbn-radius', 'bbn-background', 'bbn-hspadded', {
                       'bbn-vspadded': !!sec.collapsed,
                       'bbn-vmiddle': !sec.collapsed,
@@ -128,7 +133,7 @@
               <bbn-scroll axis="y">
                 <div v-for="(item, sidx) in sec.items"
                       :class="[
-                        'appui-vcs-project-issues-issue',
+                        'appui-vcs-project-issues-item',
                         'bbn-radius',
                         'bbn-alt-background',
                         'bbn-spadded',
@@ -237,10 +242,10 @@
                       </bbn-button>
                     </div>
                     <div class="bbn-flex"
-                          style="justify-content: flex-end">
-                      <bbn-button :title="_('Tasks')"
-                                  class="bbn-background bbn-no-border"
-                                  style="padding-left: 0.5rem; padding-right: 0.5rem">
+                         style="justify-content: flex-end">
+                      <bbn-button class="bbn-background bbn-no-border"
+                                  style="padding-left: 0.5rem; padding-right: 0.5rem"
+                                  :title="_('Tasks')">
                         <div class="bbn-vmiddle">
                           <template v-if="item.tasks.count">
                             <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
