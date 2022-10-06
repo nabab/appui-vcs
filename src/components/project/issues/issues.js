@@ -146,14 +146,15 @@
       isYou(idUser){
         return this.yourUserID === idUser;
       },
-      getLabelBackground(label){
-        return bbn.fn.getField(this.source.labels, 'backgroundColor', 'name', label);
-      },
-      getLabelColor(label){
-        return bbn.fn.getField(this.source.labels, 'fontColor', 'name', label);
-      },
       getMenuSource(item){
         let menu = [];
+        if (this.isYou(item.author.id)) {
+          menu.push({
+            text: bbn._('Edit'),
+            icon: 'nf nf-fa-edit',
+            action: () => this.editIssue(item)
+          })
+        }
         if (item.state === 'opened') {
           menu.push({
             text: bbn._('Close'),
@@ -174,6 +175,32 @@
           action: () => this.openComment(item)
         });
         return menu;
+      },
+      addIssue(section){
+        this.getPopup({
+          title: false,
+          closable: false,
+          width: '90%',
+          height: '90%',
+          component: 'appui-vcs-project-issues-issue',
+          source: {
+            title: '',
+            description: '',
+            labels: !!section.label ? [section.label.name] : [],
+            private: false,
+            assigned: {}
+          }
+        });
+      },
+      editIssue(issue){
+        this.getPopup({
+          title: false,
+          closable: false,
+          width: '90%',
+          height: '90%',
+          component: 'appui-vcs-project-issues-issue',
+          source: issue
+        });
       },
       closeIssue(item){
         if (item.state === 'opened') {
@@ -285,16 +312,6 @@
           component: 'appui-vcs-project-issues-comments',
           source: issue
         });
-      },
-      addIssue(section){
-        this.getPopup({
-          title: false,
-          closable: false,
-          width: '90%',
-          height: '90%',
-          component: 'appui-vcs-project-issues-issue',
-          source: section
-        });
       }
     },
     created(){
@@ -331,31 +348,6 @@
               this.showZoom = true;
             }
           });
-        }
-      },
-      assignUser: {
-        template: `
-          <div class="bbn-vmiddle bbn-spadded">
-            <template v-if="source.id">
-              <bbn-initial :user-name="source.name"
-                           width="1.2rem"
-                           height="1.2rem"
-                           font-size="0.7rem"/>
-              <span class="bbn-left-xsspace"
-                    v-text="source.name"/>
-              <span class="bbn-i bbn-left-xsspace">(<span v-text="source.username"/>)</span>
-            </template>
-            <div v-else>
-              <i class="nf nf-mdi-account_remove bbn-red bbn-lg"/>
-              <span v-text="source.name"
-                    class="bbn-left-xsspace"/>
-            </div>
-          </div>
-        `,
-        props: {
-          source: {
-            type: Object
-          }
         }
       }
     }

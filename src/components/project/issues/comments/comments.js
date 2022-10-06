@@ -79,9 +79,11 @@
       },
       newComment(){
         this.formSource.content = '';
+        this.currentEdit = false;
         this.commentForm = true;
       },
       editComment(comment){
+        this.commentForm = false;
         this.currentEdit = comment.id;
       },
       deleteComment(comment){

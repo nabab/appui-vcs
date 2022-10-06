@@ -2,13 +2,14 @@
 if ($model->hasData(['serverID', 'projectID', 'title'], true)
   && $model->hasData(['description', 'labels', 'private', 'assigned'])
 ) {
-  $issue = $model->inc->vcs->createProjectIssue(
+  $issue = $model->inc->vcs->editProjectIssue(
     $model->data['serverID'],
     $model->data['projectID'],
+    $model->data['id'],
     $model->data['title'],
     $model->data['description'],
     $model->data['labels'],
-    !empty($model->data['assigned']) ? $model->data['assigned']['id'] : null,
+    !empty($model->data['assigned']) ? $model->data['assigned']['id'] : 0,
     $model->data['private']
   );
   return [

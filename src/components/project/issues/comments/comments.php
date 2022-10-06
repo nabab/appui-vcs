@@ -97,30 +97,6 @@
           <comment-editor v-if="commentForm"
                           class="bbn-w-100 bbn-radius bbn-spadded appui-vcs-box-shadow bbn-alt-background bbn-top-lspace"
                           :source="formSource"/>
-          <div v-if="commentForm === 2"
-              class="bbn-w-100 bbn-radius bbn-spadded appui-vcs-box-shadow bbn-alt-background bbn-top-lspace">
-            <bbn-form :source="formSource"
-                      :data="formData"
-                      :action="mainPage.root + 'actions/project/issue/comment/insert'"
-                      :windowed="false"
-                      @success="onSuccess">
-              <div class="bbn-bottom-sspace bbn-vmiddle">
-                <i :class="{
-                     'nf nf-mdi-lock bbn-red': !!formSource.private,
-                     'nf nf-mdi-lock_open bbn-green': !formSource.private
-                   }"/>
-                <bbn-checkbox :label="_('Private')"
-                              v-model="formSource.private"
-                              :value="true"
-                              :novalue="false"
-                              class="bbn-left-sspace"/>
-              </div>
-              <bbn-rte height="30rem"
-                      v-model="formSource.content"
-                      @ready="scrollEnd"
-                      :required="true"/>
-            </bbn-form>
-          </div>
         </div>
       </bbn-scroll>
     </div>

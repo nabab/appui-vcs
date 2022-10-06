@@ -177,56 +177,17 @@
                   <issue-description v-if="item.descriptionHtml"
                                      :source="item"
                                      @zoom="openComment"/>
-                  <div v-if="item.labels.length"
-                        class="bbn-vsmargin bbn-flex-width bbn-w-100">
-                    <i class="nf nf-mdi-label_outline bbn-lg bbn-right-sspace"/>
-                    <div class="bbn-flex-fill">
-                      <div v-for="(label, i) in item.labels"
-                            :class="['bbn-radius', 'bbn-xspadded', 'bbn-iblock ', 'bbn-bottom-sspace', 'bbn-s', {
-                              'bbn-right-sspace': !!item.labels[i+1]
-                            }]"
-                            v-text="label"
-                            :style="{
-                              backgroundColor: getLabelBackground(label),
-                              color: getLabelColor(label)
-                            }"/>
-                    </div>
+                  <div class="bbn-vsmargin bbn-flex-width bbn-w-100">
+                    <i class="nf nf-mdi-label_outline bbn-lg bbn-right-sspace bbn-top-xsspace"/>
+                    <appui-vcs-project-issues-labels :source="item"
+                                                     class="bbn-flex-fill"/>
                   </div>
                   <div class="bbn-grid"
                         style="grid-template-columns: repeat(3, 1fr)">
                     <div>
-                      <bbn-context :source="getAssignmentList"
-                                    :data="item"
-                                    :style="{'pointer-events': isClosed(item) ? 'none' : ''}"
-                                    :item-component="$options.components.assignUser">
-                        <bbn-button class="bbn-background bbn-no-border"
-                                    :title="!!numProperties(item.assigned) ? _('Assigned to') : _('Unassigned')"
-                                    :style="{
-                                      'padding-left': '0.5rem',
-                                      'padding-right': '0.5rem',
-                                      'pointer-events': isClosed(item) ? 'none' : ''
-                                    }">
-                          <div class="bbn-vmiddle">
-                            <i :class="['bbn-right-sspace', {
-                              'nf nf-mdi-account_star bbn-lg': !!numProperties(item.assigned),
-                              'nf nf-mdi-account_off': !numProperties(item.assigned)
-                            }]"/>
-                            <span v-if="!numProperties(item.assigned)"
-                                  v-text="isClosed(item) ? _('Unassigned') : _('Assign')"
-                                  class="bbn-xs bbn-upper"/>
-                            <div v-else
-                                class="bbn-vmiddle">
-                              <bbn-initial :user-name="item.assigned.name"
-                                            width="1.2rem"
-                                            height="1.2rem"
-                                            font-size="0.7rem"/>
-                              <span class="bbn-left-xsspace bbn-s bbn-unselectable"
-                                    v-text="isYou(item.assigned.id) ? _('You') : item.assigned.name"
-                                    :title="item.assigned.username || item.assigned.name"/>
-                            </div>
-                          </div>
-                        </bbn-button>
-                      </bbn-context>
+                      <appui-vcs-project-issues-assign :source="item"
+                                                       :menu="getAssignmentList"
+                                                       :disabled="isClosed(item)"/>
                     </div>
                     <div class="bbn-flex"
                           style="justify-content: center">
