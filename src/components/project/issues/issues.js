@@ -171,9 +171,16 @@
         }
         menu.push({
           text: bbn._('Open in new window'),
-          icon: 'nf nf-fa-window_maximize',
+          icon: 'nf nf-mdi-open_in_new',
           action: () => this.openComment(item)
         });
+        if (!item.idAppuiTask) {
+          menu.push({
+            text: bbn._('Import to Task'),
+            icon: 'nf nf-oct-clippy',
+            action: () => this.importIssueOnTask(item)
+          });
+        }
         return menu;
       },
       addIssue(section){
@@ -312,6 +319,28 @@
           component: 'appui-vcs-project-issues-comments',
           source: issue
         });
+      },
+      importIssueOnTask(issue){
+        if (!issue.idAppuiTask) {
+          this.confirm(bbn._('Are you sure you want to import this issue on appui-task?'), () => {
+            this.post(this.mainPage.root + 'actions/project/issue/import', {
+              serverID: this.project.source.server.id,
+              projectID: this.project.source.id,
+              issueID: issue.id
+            }, d => {
+              if (d.success && d.data) {
+                issue.idAppuiTask = d.data;
+                if (!!appui.plugins['appui-task']) {
+                  bbn.fn.link(appui.plugins['appui-task'] + '/page/task/' + issue.idAppuiTask);
+                }
+                appui.succcess();
+              }
+              else {
+                appui.error();
+              }
+            })
+          });
+        }
       }
     },
     created(){

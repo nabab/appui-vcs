@@ -29,7 +29,7 @@
         bbn.fn.each(this.project.source.labels, l => {
           if (!this.source.labels.includes(l.name)) {
             menu.push({
-              icon: 'nf nf-fa-square',
+              icon: 'nf nf-fa-square bbn-lg',
               action: this.addLabel,
               label: l
             });
@@ -38,7 +38,16 @@
         return menu;
       },
       newLabel(){
-
+        this.getPopup({
+          component: this.$options.components.newLabel,
+          title: false,
+          closable: false,
+          width: '20rem',
+          source: {
+            serverID: this.project.source.server.id,
+            projectID: this.project.source.id
+          }
+        });
       },
       addLabel(idx, l){
         if (this.editMode) {
@@ -102,6 +111,48 @@
         props: {
           source: {
             type: Object
+          }
+        }
+      },
+      newLabel: {
+        template: `
+          <bbn-form :source="formSource"
+                    :data="source"
+                    @success="onSuccess"
+                    :action="root + 'actions/project/issue/label/create'">
+            <div class="bbn-padded bbn-grid-fields">
+              <label class="bbn-label">` + bbn._('Name') + `</label>
+              <bbn-input v-model="formSource.name"
+                         :required="true"/>
+              <label class="bbn-label">` + bbn._('Color') + `</label>
+              <bbn-colorpicker v-model="formSource.color"
+                               :required="true"/>
+            </div>
+          </bbn-form>
+        `,
+        props: {
+          source: {
+            type: Object
+          }
+        },
+        data(){
+          return {
+            root: appui.plugins['appui-vcs'] + '/',
+            formSource: {
+              name: '',
+              color: ''
+            }
+          }
+        },
+        methods: {
+          onSuccess(d){
+            if (d.success && d.data) {
+              this.closest('appui-vcs-project').source.labels.push(d.data);
+              this.closest('bbn-floater').opener.addLabel(0, {label: d.data});
+            }
+            else {
+              appui.error();
+            }
           }
         }
       }

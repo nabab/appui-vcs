@@ -17,13 +17,16 @@
         return !!this.mainPage ? this.mainPage.root : '';
       },
       yourUserID(){
-        let info = bbn.fn.getField(this.project.source.appui.users, 'info', 'id', appui.app.user.id);
-        return !!info ? info.id : null;
+        return !!this.project
+          && !!this.project.source
+          && !!this.project.source.users ?
+            bbn.fn.getField(this.project.source.users, 'id', 'idAppui', appui.app.user.id) :
+            null;
       }
     },
     created(){
       this._mainPage = this.closest('appui-vcs');
-      this._project = this.closest('appui-vcs-project');
+      this._project = this.$options.name === 'appui-vcs-project' ? this : this.closest('appui-vcs-project');
     }
   }];
   bbn.vue.addPrefix('appui-vcs-project-', (tag, resolve, reject) => {

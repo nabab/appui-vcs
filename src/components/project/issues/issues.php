@@ -178,7 +178,7 @@
                                      :source="item"
                                      @zoom="openComment"/>
                   <div class="bbn-vsmargin bbn-flex-width bbn-w-100">
-                    <i class="nf nf-mdi-label_outline bbn-lg bbn-right-sspace bbn-top-xsspace"/>
+                    <i class="nf nf-fa-tags bbn-primary-text-alt bbn-lg bbn-right-sspace bbn-top-xsspace"/>
                     <appui-vcs-project-issues-labels :source="item"
                                                      class="bbn-flex-fill"/>
                   </div>
@@ -211,10 +211,10 @@
                           <template v-if="item.tasks.count">
                             <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
                             <span v-text="item.tasks.completed"
-                                  class="bbn-left-sspace bbn-right-space"/>
+                                  class="bbn-left-sspace bbn-right-space bbn-green"/>
                             <i class="nf nf-mdi-playlist_remove bbn-lg bbn-red"/>
                             <span v-text="item.tasks.count - item.tasks.completed"
-                                  class="bbn-left-sspace"/>
+                                  class="bbn-left-sspace bbn-red"/>
                           </template>
                           <template v-else>
                             <i class="bbn-right-sspace nf nf-mdi-format_list_checks bbn-lg"/>

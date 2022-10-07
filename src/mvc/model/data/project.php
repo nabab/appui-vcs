@@ -12,10 +12,7 @@ if ($model->hasData(['serverID', 'projectID'], true)) {
       'usersRoles' => $model->inc->vcs->getProjectUsersRoles($model->data['serverID']),
       'events' => $model->inc->vcs->getProjectEvents($model->data['serverID'], $model->data['projectID']),
       'commitsEvents' => $model->inc->vcs->getProjectCommitsEvents($model->data['serverID'], $model->data['projectID']),
-      'labels' => $model->inc->vcs->getProjectLabels($model->data['serverID'], $model->data['projectID']),
-      'appui' => [
-        'users' => $model->inc->vcs->getAppuiUsers($model->data['serverID'])
-      ]
+      'labels' => $model->inc->vcs->getProjectLabels($model->data['serverID'], $model->data['projectID'])
     ]
   );
 }
