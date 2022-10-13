@@ -42,7 +42,8 @@
           component: this.$options.components.newLabel,
           title: false,
           closable: false,
-          width: '20rem',
+          //width: '20rem',
+          //height: '25rem',
           source: {
             serverID: this.project.source.server.id,
             projectID: this.project.source.id
@@ -51,7 +52,7 @@
       },
       addLabel(idx, l){
         if (this.editMode) {
-          this.post(this.mainPage.root + 'actions/project/issue/label/add', {
+          this.post(this.root + 'actions/project/issue/label/add', {
             serverID: this.project.source.server.id,
             projectID: this.project.source.id,
             issueID: this.source.id,
@@ -72,7 +73,7 @@
       },
       removeLabel(label){
         if (this.editMode) {
-          this.post(this.mainPage.root + 'actions/project/issue/label/remove', {
+          this.post(this.root + 'actions/project/issue/label/remove', {
             serverID: this.project.source.server.id,
             projectID: this.project.source.id,
             issueID: this.source.id,
@@ -116,19 +117,55 @@
       },
       newLabel: {
         template: `
-          <bbn-form :source="formSource"
-                    :data="source"
-                    @success="onSuccess"
-                    :action="root + 'actions/project/issue/label/create'">
-            <div class="bbn-padded bbn-grid-fields">
-              <label class="bbn-label">` + bbn._('Name') + `</label>
-              <bbn-input v-model="formSource.name"
-                         :required="true"/>
-              <label class="bbn-label">` + bbn._('Color') + `</label>
-              <bbn-colorpicker v-model="formSource.color"
-                               :required="true"/>
+          <div class="bbn-background">
+            <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
+                    'bbn-flex-width': !main.mainPage.isMobile(),
+                    'bbn-flex-height': !!main.mainPage.isMobile()
+                  }]">
+              <div :class="[
+                      'bbn-upper',
+                      'bbn-b',
+                      'bbn-lg',
+                      'bbn-secondary-text-alt',
+                      'bbn-flex-fill',
+                      'bbn-alt-background',
+                      'bbn-spadded',
+                      'bbn-radius',
+                      {
+                        'bbn-left-sspace bbn-right-space': !main.mainPage.isMobile(),
+                        'bbn-top-space bbn-bottom-space': !!main.mainPage.isMobile(),
+                      }
+                    ]"
+                    v-text="'` + bbn._('New label') + `'"/>
+              <div>
+                <bbn-button class="bbn-no-border"
+                            icon="nf nf-fa-close bbn-lg"
+                            @click="close"/>
+              </div>
             </div>
-          </bbn-form>
+            <div class="bbn-w-100 bbn-alt-background bbn-radius bbn-top-sspace">
+              <bbn-form :source="formSource"
+                        :data="source"
+                        @success="onSuccess"
+                        :action="root + 'actions/project/issue/label/create'"
+                        :scrollable="false"
+                        :windowed="false"
+                        :buttons="[{
+                          text: _('Cancel'),
+                          icon: 'nf nf-fa-times_circle',
+                          action: close
+                        }, 'submit']">
+                <div class="bbn-padded bbn-grid-fields">
+                  <label class="bbn-label">` + bbn._('Name') + `</label>
+                  <bbn-input v-model="formSource.name"
+                            :required="true"/>
+                  <label class="bbn-label">` + bbn._('Color') + `</label>
+                  <bbn-colorpicker v-model="formSource.color"
+                                  :required="true"/>
+                </div>
+              </bbn-form>
+            </div>
+          </div>
         `,
         props: {
           source: {
@@ -138,6 +175,7 @@
         data(){
           return {
             root: appui.plugins['appui-vcs'] + '/',
+            main: this.closest('bbn-floater').opener,
             formSource: {
               name: '',
               color: ''
@@ -148,12 +186,15 @@
           onSuccess(d){
             if (d.success && d.data) {
               this.closest('appui-vcs-project').source.labels.push(d.data);
-              this.closest('bbn-floater').opener.addLabel(0, {label: d.data});
+              this.main.addLabel(0, {label: d.data});
             }
             else {
               appui.error();
             }
-          }
+          },
+          close(){
+            this.main.currentPopup.close(this.main.currentPopup.items.length - 1, true);
+          },
         }
       }
     }

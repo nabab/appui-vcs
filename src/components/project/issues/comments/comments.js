@@ -41,7 +41,7 @@
       },
       refreshList(){
         this.isLoading = true;
-        this.post(this.mainPage.root + 'data/project/issues/comments', {
+        this.post(this.root + 'data/project/issues/comments', {
           serverID: this.project.source.server.id,
           projectID: this.project.source.id,
           issueID: this.source.id
@@ -88,7 +88,7 @@
       },
       deleteComment(comment){
         this.confirm(bbn._('Are you sure you want to delete this comment?'), () => {
-          this.post(this.mainPage.root + 'actions/project/issue/comment/delete', {
+          this.post(this.root + 'actions/project/issue/comment/delete', {
             serverID: this.project.source.server.id,
             projectID: this.project.source.id,
             issueID: this.source.id,
@@ -146,7 +146,7 @@
           <div class="bbn-w-100 bbn-radius appui-vcs-project-issues-comments-editor">
             <bbn-form :source="source"
                       :data="cp.formData"
-                      :action="cp.mainPage.root + 'actions/project/issue/comment/' + (!source.id ? 'insert' : 'edit')"
+                      :action="cp.root + 'actions/project/issue/comment/' + (!source.id ? 'insert' : 'edit')"
                       :windowed="false"
                       @success="cp.onSuccess"
                       :buttons="[{

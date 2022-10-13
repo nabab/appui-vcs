@@ -15,7 +15,7 @@
           border: 0 !important;
           background-color: var(--alt-background) !important;
           color: var(--alt-text) !important;
-          border-radius:0.4rem !important;
+          border-radius: var(--default-border-radius) !important;
           padding: 0.5rem !important;
           margin-bottom: 1rem !important;
           &.bbn-tabs-active {
@@ -37,6 +37,23 @@
               display: none;
             }
           }
+        }
+      }
+    }
+  }
+  .bbn-popup {
+    > .bbn-floater {
+      border-radius: var(--default-border-radius);
+      border: 0;
+      .bbn-form-footer {
+        .bbn-button {
+          border: 0 !important;
+        }
+        .bbn-button:first-of-type {
+          border-bottom-left-radius: var(--default-border-radius) !important;
+        }
+        .bbn-button:last-of-type {
+          border-bottom-right-radius: var(--default-border-radius) !important;
         }
       }
     }

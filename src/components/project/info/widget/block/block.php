@@ -7,7 +7,7 @@
                    width="1.2rem"
                    height="1.2rem"
                    font-size="0.7rem"/>
-      <span v-if="isYou"
+      <span v-if="isYou(source.author.id)"
             class="bbn-left-xsspace bbn-s"
             v-text="_('You')"/>
       <template v-else>

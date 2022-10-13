@@ -2,17 +2,11 @@
   let mixins = [{
     data(){
       return {
-        _project: null,
-        _mainPage: null
+        mainPage: {},
+        project: {}
       };
     },
     computed:{
-      project(){
-        return this._project;
-      },
-      mainPage(){
-        return this._mainPage;
-      },
       root(){
         return !!this.mainPage ? this.mainPage.root : '';
       },
@@ -24,9 +18,14 @@
             null;
       }
     },
+    methods: {
+      isYou(idUser){
+        return this.yourUserID === idUser;
+      }
+    },
     created(){
-      this._mainPage = this.closest('appui-vcs');
-      this._project = this.$options.name === 'appui-vcs-project' ? this : this.closest('appui-vcs-project');
+      this.$set(this, 'mainPage', this.closest('appui-vcs'));
+      this.$set(this, 'project', this.closest('appui-vcs-project'));
     }
   }];
   bbn.vue.addPrefix('appui-vcs-project-', (tag, resolve, reject) => {

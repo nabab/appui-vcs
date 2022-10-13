@@ -5,31 +5,29 @@
                 style="background-color: var(--default-background)"/>
   </div>
   <template v-else>
-    <div class="bbn-padded">
-      <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'appui-vcs-box-shadow', 'bbn-vmiddle', 'bbn-nowrap', {
-              'bbn-flex-width': !mainPage.isMobile(),
-              'bbn-flex-height': !!mainPage.isMobile()
-            }]">
-        <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
-              style="min-height: 2rem; flex-wrap: wrap">
-          <div :class="[{
-                  'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
-                }, 'bbn-vxsmargin']">
-            <bbn-button :text="_('New comment')"
-                        icon="nf nf-mdi-comment_plus_outline"
-                        @click="newComment"/>
-          </div>
+    <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
+            'bbn-flex-width': !mainPage.isMobile(),
+            'bbn-flex-height': !!mainPage.isMobile()
+          }]">
+      <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
+            style="min-height: 2rem; flex-wrap: wrap">
+        <div :class="[{
+                'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
+              }, 'bbn-vxsmargin']">
+          <bbn-button :text="_('New comment')"
+                      icon="nf nf-mdi-comment_plus_outline"
+                      @click="newComment"/>
         </div>
-        <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-tertiary-text-alt', {
-                'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
-                'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
-              }]"
-              v-text="_('Comments')"/>
-        <div>
-          <bbn-button class="bbn-no-border"
-                      icon="nf nf-fa-close bbn-lg"
-                      @click="currentPopup.close(currentPopup.items.length - 1, true)"/>
-        </div>
+      </div>
+      <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-tertiary-text-alt', {
+              'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
+              'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
+            }]"
+            v-text="_('Comments')"/>
+      <div>
+        <bbn-button class="bbn-no-border"
+                    icon="nf nf-fa-close bbn-lg"
+                    @click="currentPopup.close(currentPopup.items.length - 1, true)"/>
       </div>
     </div>
     <div class="bbn-flex-fill">

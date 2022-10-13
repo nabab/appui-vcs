@@ -1,4 +1,4 @@
-<bbn-form :action="mainPage.root + 'actions/project/branch/insert'"
+<bbn-form :action="root + 'actions/project/branch/insert'"
           :source="formSource"
           :data="formData"
           @success="onSuccess">

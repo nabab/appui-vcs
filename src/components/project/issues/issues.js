@@ -69,7 +69,6 @@
         let sec = [{
           title: bbn._('Opened'),
           items: this.opened,
-          collapsed: false,
           backgroundColor: null,
           fontColor: null,
           label: false,
@@ -80,7 +79,6 @@
           sec.push({
             title: l.name,
             items: items,
-            collapsed: !items.length,
             backgroundColor: l.backgroundColor || '',
             fontColor: l.fontColor || '',
             label: l,
@@ -90,7 +88,6 @@
         sec.push({
           title: bbn._('Closed'),
           items: this.closed,
-          collapsed: !this.closed.length,
           backgroundColor: null,
           fontColor: null,
           label: false,
@@ -100,16 +97,16 @@
       }
     },
     methods: {
-      numProperties: bbn.fn.numProperties,
       normalizeIssue(issue){
         issue.descriptionHtml = issue.description.replace(
           /\!\[[a-zA-Z0-9\/\.\-\_]+\]\({1}([a-zA-Z0-9\/\.\-\_]+\.{1}(jpg|png|jpeg){1})\){1}/gm,
           '<img class="appui-vcs-project-issues-img" src="' + this.source.server.host + '/' + this.source.fullpath + '/$1">'
         );
+        issue.collapsed = false;
         return issue;
       },
       refreshList(){
-        this.post(this.mainPage.root + 'data/project/issues/list', {
+        this.post(this.root + 'data/project/issues/list', {
           serverID: this.source.server.id,
           projectID: this.source.id
         }, d => {
@@ -123,261 +120,23 @@
           this.ready = true;
         });
       },
-      collapse(section){
-        section.collapsed = true;
-        this.$forceUpdate();
-      },
-      expand(section){
-        section.collapsed = false;
-        this.$forceUpdate();
-      },
-      expandAll(){
-        bbn.fn.each(this.sections, s => {
-          s.collapsed = false;
-        });
-        this.$forceUpdate();
-      },
-      collapseAll(){
-        bbn.fn.each(this.sections, s => {
-          s.collapsed = true;
-        });
-        this.$forceUpdate();
-      },
-      isYou(idUser){
-        return this.yourUserID === idUser;
-      },
-      getMenuSource(item){
-        let menu = [];
-        if (this.isYou(item.author.id)) {
-          menu.push({
-            text: bbn._('Edit'),
-            icon: 'nf nf-fa-edit',
-            action: () => this.editIssue(item)
-          })
-        }
-        if (item.state === 'opened') {
-          menu.push({
-            text: bbn._('Close'),
-            icon: 'nf nf-mdi-close_circle',
-            action: () => this.closeIssue(item)
-          });
-        }
-        if (item.state === 'closed') {
-          menu.push({
-            text: bbn._('Reopen'),
-            icon: 'nf nf-mdi-close_circle',
-            action: () => this.reopenIssue(item)
-          });
-        }
-        menu.push({
-          text: bbn._('Open in new window'),
-          icon: 'nf nf-mdi-open_in_new',
-          action: () => this.openComment(item)
-        });
-        if (!item.idAppuiTask) {
-          menu.push({
-            text: bbn._('Import to Task'),
-            icon: 'nf nf-oct-clippy',
-            action: () => this.importIssueOnTask(item)
-          });
-        }
-        return menu;
-      },
-      addIssue(section){
-        this.getPopup({
-          title: false,
-          closable: false,
-          width: '90%',
-          height: '90%',
-          component: 'appui-vcs-project-issues-issue',
-          source: {
-            title: '',
-            description: '',
-            labels: !!section.label ? [section.label.name] : [],
-            private: false,
-            assigned: {}
-          }
-        });
-      },
-      editIssue(issue){
-        this.getPopup({
-          title: false,
-          closable: false,
-          width: '90%',
-          height: '90%',
-          component: 'appui-vcs-project-issues-issue',
-          source: issue
-        });
-      },
-      closeIssue(item){
-        if (item.state === 'opened') {
-          this.confirm(bbn._('Are you sure you want to close this issue?'), () => {
-            this.post(this.mainPage.root + '/actions/project/issue/close', {
-              serverID: this.project.source.server.id,
-              projectID: this.project.source.id,
-              issueID: item.id
-            }, d => {
-              if (d.success && d.data) {
-                bbn.fn.iterate(d.data, (v, k) => {
-                  this.$set(item, k, v);
-                });
-                appui.success();
-              }
-              else {
-                appui.error();
-              }
-            });
-          });
-        }
-      },
-      reopenIssue(item){
-        if (item.state === 'closed') {
-          this.confirm(bbn._('Are you sure you want to reopen this issue?'), () => {
-            this.post(this.mainPage.root + '/actions/project/issue/reopen', {
-              serverID: this.project.source.server.id,
-              projectID: this.project.source.id,
-              issueID: item.id
-            }, d => {
-              if (d.success && d.data) {
-                bbn.fn.iterate(d.data, (v, k) => {
-                  this.$set(item, k, v);
-                });
-                appui.success();
-              }
-              else {
-                appui.error();
-              }
-            });
-          });
-        }
-      },
-      isClosed(item){
-        return item.state === 'closed';
-      },
-      getAssignmentList(idx, item){
-        if (!this.isClosed(item)) {
-          let users = bbn.fn.map(bbn.fn.extend(true, [], bbn.fn.order(this.source.members, 'name', 'asc')), u => {
-            return {
-              idIssue: item.id,
-              id: u.id,
-              name: u.name,
-              username: u.username,
-              action: () => {
-                this.assignUser(item.id, u.id);
-              }
-            }
-          });
-          users.unshift({
-            idIssue: item.id,
-            id: 0,
-            name: bbn._('Remove assignment'),
-            action: () => {
-              this.assignUser(item.id, 0);
-            }
-          })
-          return this.numProperties(item.assigned) ? bbn.fn.filter(users, u => u.id !== item.assigned.id) : users;
-        }
-        return [];
-      },
-      assignUser(idIssue, idUser){
-        let issue = bbn.fn.getRow(this.issues, 'id', idIssue);
-        if (issue && !this.isClosed(issue)) {
-          this.post(this.mainPage.root + 'actions/project/issue/assign', {
-            serverID: this.project.source.server.id,
-            projectID: this.project.source.id,
-            issueID: idIssue,
-            userID: idUser
-          }, d => {
-            if (d.success && d.data) {
-              bbn.fn.iterate(d.data, (v, k) => {
-                this.$set(issue, k, v);
-              });
-              appui.success();
-            }
-            else {
-              appui.error();
-            }
-          });
-        }
-      },
-      openComment(issue){
-        this.getPopup({
-          title: false,
-          closable: false,
-          width: '90%',
-          height: '90%',
-          component: 'appui-vcs-project-issues-comment',
-          source: issue
-        });
-      },
-      openComments(issue){
-        this.getPopup({
-          title: false,
-          closable: false,
-          width: '90%',
-          height: '90%',
-          component: 'appui-vcs-project-issues-comments',
-          source: issue
-        });
-      },
-      importIssueOnTask(issue){
-        if (!issue.idAppuiTask) {
-          this.confirm(bbn._('Are you sure you want to import this issue on appui-task?'), () => {
-            this.post(this.mainPage.root + 'actions/project/issue/import', {
-              serverID: this.project.source.server.id,
-              projectID: this.project.source.id,
-              issueID: issue.id
-            }, d => {
-              if (d.success && d.data) {
-                issue.idAppuiTask = d.data;
-                if (!!appui.plugins['appui-task']) {
-                  bbn.fn.link(appui.plugins['appui-task'] + '/page/task/' + issue.idAppuiTask);
-                }
-                appui.succcess();
-              }
-              else {
-                appui.error();
-              }
-            })
-          });
+      clearSearch(){
+        if (this.currentSearch.length) {
+          this.currentSearch = '';
         }
       }
     },
-    created(){
+    beforeMount(){
       this.refreshList();
     },
-    components: {
-      issueDescription: {
-        name: 'issue-description',
-        template: `
-        <div class="bbn-vsmargin bbn-w-100">
-          <pre v-html="source.descriptionHtml"
-               class="appui-vcs-project-issues-item-text"/>
-          <div class="bbn-c bbn-vmargin"
-               v-if="showZoom">
-            <bbn-button class="bbn-no-border bbn-upper bbn-xs"
-                        text="` + bbn._('Show more content') + `"
-                        @click="$emit('zoom', source)"/>
-          </div>
-        </div>
-        `,
-        props: {
-          source: {
-            type: Object
+    watch: {
+      filteredIssues(){
+        this.$nextTick(() => {
+          let s = this.getRef('sections');
+          if (s) {
+            s.updateData();
           }
-        },
-        data(){
-          return {
-            showZoom: false
-          }
-        },
-        mounted(){
-          this.$nextTick(() => {
-            if (this.$el.clientHeight >= 600) {
-              this.showZoom = true;
-            }
-          });
-        }
+        })
       }
     }
   }

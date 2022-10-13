@@ -26,7 +26,7 @@
           && row.name.length
         ) {
           this.confirm(bbn._('Are you sure you want to delete the branch "%s"?', row.name), () => {
-            this.post(this.mainPage.root + 'actions/project/branch/delete', {
+            this.post(this.root + 'actions/project/branch/delete', {
               serverID: this.project.source.server.id,
               projectID: this.project.source.id,
               branch: row.name
