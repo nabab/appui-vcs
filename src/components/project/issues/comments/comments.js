@@ -3,6 +3,10 @@
     props: {
       source: {
         type: Object
+      },
+      fullpage: {
+        type: Boolean,
+        default: true
       }
     },
     data(){
@@ -108,14 +112,16 @@
         })
       },
       scrollEnd(){
-        const scroll = this.getRef('scroll');
-        this.$nextTick(() => {
-          scroll.onResize().then(() => {
-            setTimeout(() => {
-              scroll.scrollEndY();
-            }, 1000);
+        const scroll = this.fullpage ? this.getRef('scroll') : this.closest('bbn-scroll');
+        if (scroll){
+          this.$nextTick(() => {
+            scroll.onResize().then(() => {
+              setTimeout(() => {
+                scroll.scrollEndY();
+              }, 1000);
+            });
           });
-        })
+        }
       },
       onSuccess(d){
         if (d.success && d.data) {

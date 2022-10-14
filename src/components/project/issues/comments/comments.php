@@ -1,37 +1,41 @@
-<div class="appui-vcs-project-issues-comments bbn-background bbn-overlay bbn-flex-height">
+<div :class="['appui-vcs-project-issues-comments', 'bbn-background', {
+       'bbn-overlay bbn-flex-height': fullpage,
+       'bbn-w-100': !fullpage
+     }]">
   <div v-if="isLoading"
-       class="bbn-flex-fill">
+       :class="{'bbn-flex-fill': fullpage}">
     <bbn-loader class="bbn-radius"
                 style="background-color: var(--default-background)"/>
   </div>
   <template v-else>
     <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
-            'bbn-flex-width': !mainPage.isMobile(),
-            'bbn-flex-height': !!mainPage.isMobile()
-          }]">
+           'bbn-flex-width': !mainPage.isMobile(),
+           'bbn-flex-height': !!mainPage.isMobile()
+         }]">
       <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
-            style="min-height: 2rem; flex-wrap: wrap">
+           style="min-height: 2rem; flex-wrap: wrap">
         <div :class="[{
-                'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
-              }, 'bbn-vxsmargin']">
+               'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
+             }, 'bbn-vxsmargin']">
           <bbn-button :text="_('New comment')"
                       icon="nf nf-mdi-comment_plus_outline"
                       @click="newComment"/>
         </div>
       </div>
       <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-tertiary-text-alt', {
-              'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
-              'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
-            }]"
-            v-text="_('Comments')"/>
-      <div>
+             'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
+             'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
+           }]"
+           v-text="_('Comments')"/>
+      <div v-if="fullpage">
         <bbn-button class="bbn-no-border"
                     icon="nf nf-fa-close bbn-lg"
                     @click="currentPopup.close(currentPopup.items.length - 1, true)"/>
       </div>
     </div>
-    <div class="bbn-flex-fill">
-      <bbn-scroll axis="y"
+    <div :class="{'bbn-flex-fill': fullpage}">
+      <component :is="fullpage ? 'bbn-scroll' : 'div'"
+                  axis="y"
                   ref="scroll">
         <div class="bbn-padded bbn-w-100">
           <div v-for="(item, idx) in comments"
@@ -96,7 +100,7 @@
                           class="bbn-w-100 bbn-radius bbn-spadded appui-vcs-box-shadow bbn-alt-background bbn-top-lspace"
                           :source="formSource"/>
         </div>
-      </bbn-scroll>
+      </component>
     </div>
   </template>
 </div>

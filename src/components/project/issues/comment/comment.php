@@ -15,10 +15,13 @@
     </div>
   </div>
   <div class="bbn-flex-fill bbn-top-xsspace bbn-xspadded">
-    <div class="bbn-100 bbn-alt-background bbn-radius">
+    <div class="bbn-100 bbn-radius">
       <bbn-scroll axis="y">
         <pre v-html="source.descriptionHtml"
-            class="bbn-padded bbn-w-100 appui-vcs-project-issues-comment-text bbn-no-margin"/>
+            class="bbn-padded bbn-w-100 appui-vcs-project-issues-comment-text bbn-no-margin bbn-alt-background bbn-radius"/>
+        <appui-vcs-project-issues-comments :source="source"
+                                           :fullpage="false"
+                                           class="bbn-top-space bbn-radius"/>
       </bbn-scroll>
     </div>
   </div>
