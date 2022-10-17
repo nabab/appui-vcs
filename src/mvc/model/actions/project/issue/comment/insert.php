@@ -2,8 +2,7 @@
 if ($model->hasData(['serverID', 'projectID', 'issueID', 'content'], true)
   && $model->hasData('private')
 ) {
-  $comment = $model->inc->vcs->insertProjectIssueComment(
-    $model->data['serverID'],
+  $comment = $model->inc->vcs->changeServer($model->data['serverID'])->insertProjectIssueComment(
     $model->data['projectID'],
     $model->data['issueID'],
     $model->data['content'],

@@ -1,7 +1,6 @@
 <?php
 if ($model->hasData(['serverID', 'projectID', 'issueID'], true)) {
-  $issue = $model->inc->vcs->closeProjectIssue(
-    $model->data['serverID'],
+  $issue = $model->inc->vcs->changeServer($model->data['serverID'])->closeProjectIssue(
     $model->data['projectID'],
     $model->data['issueID']
   );

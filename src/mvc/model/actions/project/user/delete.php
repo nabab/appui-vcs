@@ -1,8 +1,7 @@
 <?php
 if ($model->hasData(['serverID', 'projectID', 'userID'], true)) {
   return [
-    'success' => $model->inc->vcs->removeProjectUser(
-      $model->data['serverID'],
+    'success' => $model->inc->vcs->changeServer($model->data['serverID'])->removeProjectUser(
       $model->data['projectID'],
       $model->data['userID']
     )

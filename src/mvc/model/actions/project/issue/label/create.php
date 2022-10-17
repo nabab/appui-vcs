@@ -1,7 +1,6 @@
 <?php
 if ($model->hasData(['serverID', 'projectID', 'name', 'color'], true)) {
-  $label = $model->inc->vcs->createProjectLabel(
-    $model->data['serverID'],
+  $label = $model->inc->vcs->changeServer($model->data['serverID'])->createProjectLabel(
     $model->data['projectID'],
     $model->data['name'],
     $model->data['color']

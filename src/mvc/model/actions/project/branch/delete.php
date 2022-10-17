@@ -1,8 +1,7 @@
 <?php
 if ($model->hasData(['serverID', 'projectID', 'branch'], true)) {
   return [
-    'success' => $model->inc->vcs->deleteBranch(
-      $model->data['serverID'],
+    'success' => $model->inc->vcs->changeServer($model->data['serverID'])->deleteBranch(
       $model->data['projectID'],
       $model->data['branch']
     )

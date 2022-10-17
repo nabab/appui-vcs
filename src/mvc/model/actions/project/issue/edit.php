@@ -2,8 +2,7 @@
 if ($model->hasData(['serverID', 'projectID', 'title'], true)
   && $model->hasData(['description', 'labels', 'private', 'assigned'])
 ) {
-  $issue = $model->inc->vcs->editProjectIssue(
-    $model->data['serverID'],
+  $issue = $model->inc->vcs->changeServer($model->data['serverID'])->editProjectIssue(
     $model->data['projectID'],
     $model->data['id'],
     $model->data['title'],
