@@ -41,7 +41,7 @@
         "id_note"
       ],
       "ref_db": null,
-      "ref_table": "bbn_tasks_notes",
+      "ref_table": "bbn_notes",
       "ref_column": "id",
       "constraint": "bbn_tasks_vcs_ibfk_4",
       "update": "CASCADE",
@@ -106,12 +106,14 @@
     "id_task": {
       "position": 3,
       "type": "binary",
-      "null": 0,
+      "null": 1,
       "key": "MUL",
       "extra": "",
       "signed": 1,
       "virtual": false,
       "generation": null,
+      "default": "NULL",
+      "defaultExpression": false,
       "maxlength": 16
     },
     "id_note": {
