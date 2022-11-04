@@ -9,10 +9,15 @@
     data(){
       return {
         root: appui.plugins['appui-vcs'] + '/',
-        types: [{
-          text: bbn._('Git'),
-          value: 'git'
-        }]
+        mainPage: appui.getRegistered('appui-vcs')
+      }
+    },
+    computed: {
+      filteredEngines(){
+        if (!this.source.type || !this.source.type.length) {
+          return [];
+        }
+        return bbn.fn.filter(this.mainPage.engines, 'type', this.source.type);
       }
     },
     methods: {

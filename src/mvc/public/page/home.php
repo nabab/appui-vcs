@@ -1,2 +1,3 @@
 <?php
-$ctrl->setColor('salmon', 'white')->combo('', true);
+$ctrl->setColor('salmon', 'white')
+  ->combo('', true);

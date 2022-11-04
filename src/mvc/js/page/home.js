@@ -23,6 +23,7 @@
             name: '',
             host: '',
             type: 'git',
+            engine: '',
             adminAccessToken: '',
             userAccessToken: ''
           }
