@@ -80,10 +80,6 @@
         "type": "binary",
         "null": 0,
         "key": "PRI",
-        "extra": "",
-        "signed": 1,
-        "virtual": false,
-        "generation": null,
         "maxlength": 16
       },
       "id_parent": {
@@ -91,12 +87,8 @@
         "type": "binary",
         "null": 1,
         "key": "MUL",
-        "extra": "",
-        "signed": 1,
-        "virtual": false,
-        "generation": null,
         "default": "NULL",
-        "defaultExpression": false,
+        "defaultExpression": 1,
         "maxlength": 16
       },
       "id_task": {
@@ -104,12 +96,8 @@
         "type": "binary",
         "null": 1,
         "key": "MUL",
-        "extra": "",
-        "signed": 1,
-        "virtual": false,
-        "generation": null,
         "default": "NULL",
-        "defaultExpression": false,
+        "defaultExpression": 1,
         "maxlength": 16
       },
       "id_note": {
@@ -117,12 +105,8 @@
         "type": "binary",
         "null": 1,
         "key": "MUL",
-        "extra": "",
-        "signed": 1,
-        "virtual": false,
-        "generation": null,
         "default": "NULL",
-        "defaultExpression": false,
+        "defaultExpression": 1,
         "maxlength": 16
       },
       "id_server": {
@@ -130,12 +114,8 @@
         "type": "binary",
         "null": 1,
         "key": "MUL",
-        "extra": "",
-        "signed": 1,
-        "virtual": false,
-        "generation": null,
         "default": "NULL",
-        "defaultExpression": false,
+        "defaultExpression": 1,
         "maxlength": 16
       },
       "id_project": {
@@ -143,10 +123,7 @@
         "type": "int",
         "null": 0,
         "key": null,
-        "extra": "",
         "signed": 1,
-        "virtual": false,
-        "generation": null,
         "maxlength": 11
       },
       "id_issue": {
@@ -154,12 +131,9 @@
         "type": "int",
         "null": 1,
         "key": null,
-        "extra": "",
         "signed": 1,
-        "virtual": false,
-        "generation": null,
         "default": "NULL",
-        "defaultExpression": false,
+        "defaultExpression": 1,
         "maxlength": 11
       },
       "id_comment": {
@@ -169,10 +143,8 @@
         "key": null,
         "extra": "",
         "signed": 1,
-        "virtual": false,
-        "generation": null,
         "default": "NULL",
-        "defaultExpression": false,
+        "defaultExpression": 1,
         "maxlength": 11
       }
     }
