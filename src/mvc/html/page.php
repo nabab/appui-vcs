@@ -7,7 +7,7 @@
                     :static="true"
                     :load="true"
                     icon="nf nf-fa-home"
-                    title="<?=_('Home')?>"
+                    title="<?= _('Home') ?>"
                     :notext="true"/>
   </bbn-router>
 </div>
