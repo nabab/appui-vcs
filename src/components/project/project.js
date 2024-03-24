@@ -14,7 +14,7 @@
         return !!this.project
           && !!this.project.source
           && !!this.project.source.users ?
-            bbn.fn.getField(this.project.source.users, 'id', 'idAppui', appui.app.user.id) :
+            bbn.fn.getField(this.project.source.users, 'id', 'idAppui', appui.user.id) :
             null;
       }
     },
