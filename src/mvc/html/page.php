@@ -4,7 +4,7 @@
               :autoload="true"
               :nav="true">
     <bbns-container url="home"
-                    :static="true"
+                    :fixed="true"
                     :load="true"
                     icon="nf nf-fa-home"
                     title="<?= _('Home') ?>"
