@@ -1,10 +1,10 @@
 <div class="appui-vcs-project-info bbn-alt-background bbn-overlay">
   <bbn-scroll axis="y">
-    <div class="bbn-padded">
-      <div class="appui-vcs-project-info-header bbn-background bbn-radius bbn-padded bbn-bottom-space appui-vcs-box-shadow">
+    <div class="bbn-padding">
+      <div class="appui-vcs-project-info-header bbn-background bbn-radius bbn-padding bbn-bottom-space appui-vcs-box-shadow">
         <div class="bbn-flex-width bbn-vmiddle"
              style="flex-wrap: wrap; justify-content: center">
-          <div :class="['appui-vcs-project-info-header-icon', 'bbn-middle', 'bbn-spadded', 'bbn-white', 'bbn-right-space', {
+          <div :class="['appui-vcs-project-info-header-icon', 'bbn-middle', 'bbn-spadding', 'bbn-white', 'bbn-right-space', {
                  'appui-vcs-project-info-header-icon-git': isGit,
                  'appui-vcs-project-info-header-icon-svn': !isGit
                }]">

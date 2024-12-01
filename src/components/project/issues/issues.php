@@ -1,10 +1,10 @@
 <div class="appui-vcs-project-issues bbn-alt-background bbn-overlay bbn-flex-height">
-  <div class="bbn-alt-background bbn-padded">
-    <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'appui-vcs-box-shadow', 'bbn-vmiddle', 'bbn-nowrap', {
+  <div class="bbn-alt-background bbn-padding">
+    <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'appui-vcs-box-shadow', 'bbn-vmiddle', 'bbn-nowrap', {
            'bbn-flex-width': !mainPage.isMobile(),
            'bbn-flex-height': !!mainPage.isMobile()
          }]">
-      <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
+      <div class="bbn-alt-background bbn-vmiddle bbn-hspadding bbn-radius bbn-flex-fill"
            style="min-height: 2rem; flex-wrap: wrap">
         <div :class="[{
                'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
@@ -65,7 +65,7 @@
                              toolbar="appui-vcs-project-issues-toolbar"
                              :pageable="true"/>
     <div v-else
-         class="bbn-100 bbn-alt-background bbn-padded">
+         class="bbn-100 bbn-alt-background bbn-padding">
       <div class="bbn-100">
         <bbn-loader class="bbn-radius"
                     style="background-color: var(--default-background)"/>

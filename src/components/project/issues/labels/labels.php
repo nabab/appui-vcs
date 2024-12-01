@@ -1,6 +1,6 @@
 <div class="appui-vcs-project-issues-labels bbn-w-100">
   <div v-for="(label, i) in source.labels"
-        :class="['bbn-radius', 'bbn-xspadded', 'bbn-iblock ', 'bbn-bottom-sspace', 'bbn-s', 'appui-vcs-project-issues-labels-label', {
+        :class="['bbn-radius', 'bbn-xspadding', 'bbn-iblock ', 'bbn-bottom-sspace', 'bbn-s', 'appui-vcs-project-issues-labels-label', {
           'bbn-right-sspace': !!source.labels[i+1]
         }]"
         :style="{

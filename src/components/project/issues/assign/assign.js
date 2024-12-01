@@ -25,7 +25,7 @@
     components: {
       assignUser: {
         template: `
-          <div class="bbn-vmiddle bbn-spadded">
+          <div class="bbn-vmiddle bbn-spadding">
             <template v-if="source.id">
               <bbn-initial :user-name="source.name"
                            width="1.2rem"

@@ -2,7 +2,7 @@
           :source="formSource"
           :data="formData"
           @success="onSuccess">
-  <div class="bbn-padded bbn-grid-fields">
+  <div class="bbn-padding bbn-grid-fields">
     <label class="bbn-label"
            v-text="_('Name')"/>
     <bbn-input v-model="formSource.name"

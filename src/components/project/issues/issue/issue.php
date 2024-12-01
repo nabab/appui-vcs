@@ -19,7 +19,7 @@
          class="bbn-s"/>
   </div>
   <div class="bbn-flex-width">
-    <div class="bbn-radius bbn-background bbn-right-sspace bbn-middle bbn-xspadded bbn-vsmargin">
+    <div class="bbn-radius bbn-background bbn-right-sspace bbn-middle bbn-xspadding bbn-vsmargin">
       <i v-if="source.collapsed"
          class="nf nf-fa-expand bbn-p"
          :title="_('Expand')"
@@ -29,14 +29,14 @@
          :title="_('Collapse')"
          @click="source.collapsed = true"/>
     </div>
-    <div class="bbn-middle bbn-vsmargin bbn-background bbn-radius bbn-spadded bbn-flex-fill">
+    <div class="bbn-middle bbn-vsmargin bbn-background bbn-radius bbn-spadding bbn-flex-fill">
       <i class="nf nf-mdi-lock bbn-red bbn-right-sspace"
          :title="_('Private')"
          v-if="!!source.private"/>
       <div class="bbn-b bbn-secondary-text-alt bbn-upper"
            v-text="source.title"/>
     </div>
-    <div class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-xspadded bbn-vsmargin">
+    <div class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-xspadding bbn-vsmargin">
       <bbn-context :source="getMenuSource">
         <i class="nf nf-mdi-dots_vertical bbn-p"/>
       </bbn-context>

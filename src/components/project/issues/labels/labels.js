@@ -102,7 +102,7 @@
     components: {
       label: {
         template: `
-          <div class="bbn-spadded bbn-vmiddle">
+          <div class="bbn-spadding bbn-vmiddle">
             <i :class="source.icon"
                :style="{color: source.label.backgroundColor}"/>
             <span class="bbn-left-sspace"
@@ -118,7 +118,7 @@
       newLabel: {
         template: `
           <div class="bbn-background">
-            <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
+            <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
                     'bbn-flex-width': !main.mainPage.isMobile(),
                     'bbn-flex-height': !!main.mainPage.isMobile()
                   }]">
@@ -129,7 +129,7 @@
                       'bbn-secondary-text-alt',
                       'bbn-flex-fill',
                       'bbn-alt-background',
-                      'bbn-spadded',
+                      'bbn-spadding',
                       'bbn-radius',
                       {
                         'bbn-left-sspace bbn-right-space': !main.mainPage.isMobile(),
@@ -155,7 +155,7 @@
                           icon: 'nf nf-fa-times_circle',
                           action: close
                         }, 'submit']">
-                <div class="bbn-padded bbn-grid-fields">
+                <div class="bbn-padding bbn-grid-fields">
                   <label class="bbn-label">` + bbn._('Name') + `</label>
                   <bbn-input v-model="formSource.name"
                             :required="true"/>

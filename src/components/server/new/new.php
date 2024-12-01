@@ -1,7 +1,7 @@
 <bbn-form :action="root + 'actions/server/' + (!!source.id ? 'edit' : 'create')"
           :source="source"
           @success="onSuccess">
-  <div class="bbn-grid-fields bbn-padded">
+  <div class="bbn-grid-fields bbn-padding">
     <label class="bbn-label"><?= _('Name') ?></label>
     <bbn-input v-model="source.name"
                :required="true"/>

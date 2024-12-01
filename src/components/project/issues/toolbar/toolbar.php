@@ -15,8 +15,8 @@
                 class="bbn-no-border bbn-right-sspace"
                 @click="expandAll"/>
   </template>
-  <div :class="['bbn-radius', 'bbn-background', 'bbn-hspadded', {
-          'bbn-vspadded': !source.opened,
+  <div :class="['bbn-radius', 'bbn-background', 'bbn-hspadding', {
+          'bbn-vspadding': !source.opened,
           'bbn-vmiddle': !!source.opened,
           'bbn-flex': !source.opened,
           'verticaltext': !source.opened

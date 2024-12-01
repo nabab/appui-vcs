@@ -1,4 +1,4 @@
-<div :class="['appui-vcs-project-info-widget-block', 'bbn-alt-background', 'bbn-spadded', 'bbn-radius', {
+<div :class="['appui-vcs-project-info-widget-block', 'bbn-alt-background', 'bbn-spadding', 'bbn-radius', {
        'bbn-bottom-space': !!margin
      }]">
   <div class="bbn-flex-width">

@@ -8,11 +8,11 @@
                 style="background-color: var(--default-background)"/>
   </div>
   <template v-else>
-    <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
+    <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
            'bbn-flex-width': !mainPage.isMobile(),
            'bbn-flex-height': !!mainPage.isMobile()
          }]">
-      <div class="bbn-alt-background bbn-vmiddle bbn-hspadded bbn-radius bbn-flex-fill"
+      <div class="bbn-alt-background bbn-vmiddle bbn-hspadding bbn-radius bbn-flex-fill"
            style="min-height: 2rem; flex-wrap: wrap">
         <div :class="[{
                'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
@@ -37,12 +37,12 @@
       <component :is="fullpage ? 'bbn-scroll' : 'div'"
                   axis="y"
                   ref="scroll">
-        <div class="bbn-padded bbn-w-100">
+        <div class="bbn-padding bbn-w-100">
           <div v-for="(item, idx) in comments"
                 :class="[
                   'bbn-w-100',
                   'bbn-radius',
-                  'bbn-spadded',
+                  'bbn-spadding',
                   'appui-vcs-box-shadow',
                   {
                     'bbn-alt-background': !item.auto && !item.private,
@@ -74,7 +74,7 @@
                     class="bbn-s"/>
             </div>
             <div class="bbn-flex-width">
-              <div class="bbn-vmiddle bbn-top-sspace bbn-background bbn-radius bbn-spadded bbn-flex-fill">
+              <div class="bbn-vmiddle bbn-top-sspace bbn-background bbn-radius bbn-spadding bbn-flex-fill">
                 <comment-editor v-if="item.id === currentEdit"
                                 :source="item"/>
                 <pre v-else
@@ -85,7 +85,7 @@
                      }]"
                      v-html="item.contentHtml"/>
               </div>
-              <div class="bbn-radius bbn-background bbn-text bbn-left-sspace bbn-middle bbn-hxspadded bbn-vspadded bbn-vsmargin"
+              <div class="bbn-radius bbn-background bbn-text bbn-left-sspace bbn-middle bbn-hxspadding bbn-vspadding bbn-vsmargin"
                   style="height: max-content"
                   v-if="!item.auto">
                 <bbn-context :source="getMenuSource"
@@ -97,7 +97,7 @@
             </div>
           </div>
           <comment-editor v-if="commentForm"
-                          class="bbn-w-100 bbn-radius bbn-spadded appui-vcs-box-shadow bbn-alt-background bbn-top-lspace"
+                          class="bbn-w-100 bbn-radius bbn-spadding appui-vcs-box-shadow bbn-alt-background bbn-top-lspace"
                           :source="formSource"/>
         </div>
       </component>

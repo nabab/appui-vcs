@@ -1,9 +1,9 @@
 <div class="appui-vcs-project-issues-issue-form bbn-background bbn-overlay bbn-flex-height">
-  <div :class="['bbn-spadded', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
+  <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
           'bbn-flex-width': !mainPage.isMobile(),
           'bbn-flex-height': !!mainPage.isMobile()
         }]">
-    <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-secondary-text-alt', 'bbn-flex-fill', 'bbn-alt-background', 'bbn-spadded', 'bbn-radius', {
+    <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-secondary-text-alt', 'bbn-flex-fill', 'bbn-alt-background', 'bbn-spadding', 'bbn-radius', {
             'bbn-left-sspace bbn-right-space': !mainPage.isMobile(),
             'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
           }]"
@@ -28,7 +28,7 @@
                   action: close
                 }, 'submit']"
                 ref="form">
-        <div class="bbn-padded bbn-grid-fields">
+        <div class="bbn-padding bbn-grid-fields">
           <label class="bbn-label"
                  v-text="_('Title')"/>
           <bbn-input class="bbn-w-100"
