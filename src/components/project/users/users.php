@@ -4,7 +4,7 @@
     <div class="bbn-spadding bbn-background bbn-radius bbn-bottom-space appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
         <div class="bbn-alt-background bbn-vmiddle bbn-xspadding bbn-radius bbn-flex-fill">
           <bbn-button icon="nf nf-fa-plus"
-                      :text="_('Add')"
+                      :label="_('Add')"
                       @click="insertUser"/>
         </div>
         <div class="bbn-upper bbn-b bbn-lg bbn-tertiary-text-alt bbn-left-lspace bbn-right-space"
@@ -20,29 +20,29 @@
                    }]"
                    >
           <bbns-column field="avatar"
-                       title=" "
+                       label=" "
                        cls="bbn-c"
                        :width="60"
                        :component="$options.components.avatar"/>
           <bbns-column field="id"
-                       :title="_('ID')"
+                       :label="_('ID')"
                        :width="40"
                        cls="bbn-c"/>
           <bbns-column field="name"
-                       :title="_('Name')"
+                       :label="_('Name')"
                        :render="renderName"/>
           <bbns-column field="role"
-                       :title="_('Role')"
+                       :label="_('Role')"
                        :width="120"
                        cls="bbn-c"/>
           <bbns-column field="created"
-                       :title="_('At')"
+                       :label="_('At')"
                        group="added"
                        :width="130"
                        cls="bbn-c"
                        :render="renderDate"/>
           <bbns-column field="author"
-                       :title="_('By')"
+                       :label="_('By')"
                        group="added"
                        :width="200"
                        :component="$options.components.author"/>

@@ -15,7 +15,7 @@
       insertBranch(){
         this.getPopup({
           component: 'appui-vcs-project-branches-new',
-          title: bbn._('Create a new branch'),
+          label: bbn._('Create a new branch'),
           width: 400
         })
       },

@@ -82,7 +82,7 @@
       },
       editIssue(){
         this.getPopup({
-          title: false,
+          label: false,
           closable: false,
           width: '90%',
           height: '90%',
@@ -134,7 +134,7 @@
       },
       openInNewWindow(){
         this.getPopup({
-          title: false,
+          label: false,
           closable: false,
           width: '90%',
           height: '90%',
@@ -144,7 +144,7 @@
       },
       openComments(){
         this.getPopup({
-          title: false,
+          label: false,
           closable: false,
           width: '90%',
           height: '90%',

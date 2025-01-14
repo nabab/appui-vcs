@@ -37,7 +37,7 @@
       insertUser(){
         this.getPopup({
           component: 'appui-vcs-project-users-new',
-          title: bbn._('Add an user'),
+          label: bbn._('Add an user'),
           width: 400
         })
       }

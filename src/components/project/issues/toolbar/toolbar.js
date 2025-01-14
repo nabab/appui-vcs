@@ -8,13 +8,13 @@
     methods: {
       addIssue(){
         this.getPopup({
-          title: false,
+          label: false,
           closable: false,
           width: '90%',
           height: '90%',
           component: 'appui-vcs-project-issues-issue-form',
           source: {
-            title: '',
+            label: '',
             description: '',
             labels: !!this.source.data.label ? [this.source.data.label.name] : [],
             private: false,

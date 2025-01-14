@@ -32,19 +32,19 @@
         return [{
           component: 'appui-vcs-project-info-widget',
           source: {
-            title: bbn._('Latest commits'),
+            label: bbn._('Latest commits'),
             items: this.latestCommits
           }
         }, {
           component: 'appui-vcs-project-info-widget',
           source: {
-            title: bbn._('Latest events'),
+            label: bbn._('Latest events'),
             items: this.latestEvents
           }
         }, {
           component: 'appui-vcs-project-info-widget',
           source: {
-            title: bbn._('Latest branches activities'),
+            label: bbn._('Latest branches activities'),
             items: this.latestBranchesActivities
           }
         }]

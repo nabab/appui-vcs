@@ -4,7 +4,7 @@
       <div class="bbn-spadding bbn-background bbn-radius bbn-bottom-space appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
         <div class="bbn-alt-background bbn-vmiddle bbn-xspadding bbn-radius bbn-flex-fill">
           <bbn-button icon="nf nf-fa-plus"
-                      :text="_('Add')"
+                      :label="_('Add')"
                       @click="insertBranch"/>
         </div>
         <div class="bbn-upper bbn-b bbn-lg bbn-tertiary-text-alt bbn-left-lspace bbn-right-space"
@@ -19,20 +19,20 @@
                    }]"
                    :scrollable="true">
           <bbns-column field="default"
-                       :title="_('Def.')"
-                       :ftitle="_('Default')"
+                       :label="_('Def.')"
+                       :flabel="_('Default')"
                        :render="renderDefault"
                        cls="bbn-c"
                        :width="60"/>
           <bbns-column field="name"
-                       :title="_('Name')"/>
+                       :label="_('Name')"/>
           <bbns-column field="author"
-                       :title="_('User')"
+                       :label="_('User')"
                        group="lastaction"
                        :width="250"
                        :component="$options.components.author"/>
           <bbns-column field="created"
-                       :title="_('Date')"
+                       :label="_('Date')"
                        group="lastaction"
                        :render="renderCreated"
                        :width="130"

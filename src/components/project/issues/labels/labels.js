@@ -40,7 +40,7 @@
       newLabel(){
         this.getPopup({
           component: this.$options.components.newLabel,
-          title: false,
+          label: false,
           closable: false,
           //width: '20rem',
           //height: '25rem',

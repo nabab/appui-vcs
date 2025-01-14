@@ -50,7 +50,7 @@
       <div class="bbn-c bbn-top-space"
             v-if="showOpenInNewWindowButton">
         <bbn-button class="bbn-no-border bbn-upper bbn-xs"
-                    :text="_('Show more content')"
+                    :label="_('Show more content')"
                     @click="openInNewWindow"/>
       </div>
     </div>

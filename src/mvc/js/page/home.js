@@ -16,7 +16,7 @@
     methods: {
       createServer(){
         this.getPopup({
-          title: bbn._('New server'),
+          label: bbn._('New server'),
           component: 'appui-vcs-server-new',
           width: 500,
           source: {
@@ -105,7 +105,7 @@
           },
           edit(){
             this.getPopup({
-              title: bbn._('Edit server'),
+              label: bbn._('Edit server'),
               component: 'appui-vcs-server-new',
               width: 500,
               source: this.source

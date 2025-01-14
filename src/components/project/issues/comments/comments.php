@@ -17,7 +17,7 @@
         <div :class="[{
                'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
              }, 'bbn-vxsmargin']">
-          <bbn-button :text="_('New comment')"
+          <bbn-button :label="_('New comment')"
                       icon="nf nf-mdi-comment_plus_outline"
                       @click="newComment"/>
         </div>

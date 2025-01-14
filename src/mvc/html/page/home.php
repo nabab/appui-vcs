@@ -5,7 +5,7 @@
       <div class="bbn-flex-height bbn-alt-background bbn-padding">
         <div class="bbn-spadding bbn-background bbn-radius bbn-bottom-space appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
           <div class="bbn-alt-background bbn-vmiddle bbn-xspadding bbn-radius bbn-flex-fill">
-            <bbn-button :text="_('Add server')"
+            <bbn-button :label="_('Add server')"
                         icon="nf nf-fa-plus"
                         @click="createServer"/>
           </div>
@@ -31,7 +31,7 @@
     <div class="bbn-flex-height bbn-alt-background bbn-padding">
         <div class="bbn-spadding bbn-background bbn-radius bbn-bottom-space appui-vcs-box-shadow bbn-vmiddle bbn-flex-width">
           <div class="bbn-alt-background bbn-vmiddle bbn-xspadding bbn-radius bbn-flex-fill">
-            <bbn-button :text="_('New project')"
+            <bbn-button :label="_('New project')"
                         icon="nf nf-fa-plus"
                         :disabled="!selectedServer"
                         @click="createProject"/>

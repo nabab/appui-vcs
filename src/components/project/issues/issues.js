@@ -67,7 +67,7 @@
       },
       sections(){
         let sec = [{
-          title: bbn._('Opened'),
+          label: bbn._('Opened'),
           items: this.opened,
           backgroundColor: null,
           fontColor: null,
@@ -77,7 +77,7 @@
         bbn.fn.each(this.source.labels, l => {
           let items = bbn.fn.filter(this.opened, i => i.labels.includes(l.name));
           sec.push({
-            title: l.name,
+            label: l.name,
             items: items,
             backgroundColor: l.backgroundColor || '',
             fontColor: l.fontColor || '',
@@ -86,7 +86,7 @@
           });
         });
         sec.push({
-          title: bbn._('Closed'),
+          label: bbn._('Closed'),
           items: this.closed,
           backgroundColor: null,
           fontColor: null,
