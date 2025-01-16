@@ -31,7 +31,7 @@
          'bbn-vsmargin': !source.title
        }]"
        v-if="source.branch">
-    <i class="nf nf-mdi-source_branch bbn-lg"
+    <i class="nf nf-md-source_branch bbn-lg"
        :title="_('Branch')"/>
     <div :title="_('Branch')"
          v-text="source.branch"

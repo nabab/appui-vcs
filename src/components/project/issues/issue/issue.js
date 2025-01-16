@@ -28,26 +28,26 @@
         if (this.isClosed) {
           menu.push({
             text: bbn._('Reopen'),
-            icon: 'nf nf-mdi-close_circle',
+            icon: 'nf nf-md-close_circle',
             action: this.reopenIssue
           });
         }
         else {
           menu.push({
             text: bbn._('Close'),
-            icon: 'nf nf-mdi-close_circle',
+            icon: 'nf nf-md-close_circle',
             action: this.closeIssue
           });
         }
         menu.push({
           text: bbn._('Open in new window'),
-          icon: 'nf nf-mdi-open_in_new',
+          icon: 'nf nf-md-open_in_new',
           action: this.openInNewWindow
         });
         if (this.source.collapsed) {
           menu.push({
             text: bbn._('Expand'),
-            icon: 'nf nf-mdi-arrow_expand',
+            icon: 'nf nf-md-arrow_expand',
             action: () => {
               this.source.collapsed = false;
             }
@@ -56,7 +56,7 @@
         else {
           menu.push({
             text: bbn._('Collapse'),
-            icon: 'nf nf-mdi-arrow_collapse',
+            icon: 'nf nf-md-arrow_collapse',
             action: () => {
               this.source.collapsed = true;
             }

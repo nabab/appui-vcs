@@ -36,7 +36,7 @@
               <span class="bbn-i bbn-left-xsspace">(<span v-text="source.username"/>)</span>
             </template>
             <div v-else>
-              <i class="nf nf-mdi-account_remove bbn-red bbn-lg"/>
+              <i class="nf nf-md-account_remove bbn-red bbn-lg"/>
               <span v-text="source.name"
                     class="bbn-left-xsspace"/>
             </div>

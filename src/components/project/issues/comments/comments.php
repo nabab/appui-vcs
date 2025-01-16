@@ -18,7 +18,7 @@
                'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
              }, 'bbn-vxsmargin']">
           <bbn-button :label="_('New comment')"
-                      icon="nf nf-mdi-comment_plus_outline"
+                      icon="nf nf-md-comment_plus_outline"
                       @click="newComment"/>
         </div>
       </div>
@@ -61,7 +61,7 @@
                       v-text="isYou(item.author.id) ? _('You') : item.author.name"
                       :title="item.author.username || item.author.name"/>
               </div>
-              <i class="nf nf-mdi-lock bbn-red bbn-hsmargin"
+              <i class="nf nf-md-lock bbn-red bbn-hsmargin"
                  :title="_('Private')"
                  v-if="item.private"/>
               <div v-if="item.created === item.updated"
@@ -91,7 +91,7 @@
                 <bbn-context :source="getMenuSource"
                             :data="item"
                             :sourceIndex="idx">
-                  <i class="nf nf-mdi-dots_vertical bbn-p"/>
+                  <i class="nf nf-md-dots_vertical bbn-p"/>
                 </bbn-context>
               </div>
             </div>

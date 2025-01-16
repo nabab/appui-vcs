@@ -52,8 +52,8 @@
           <div class="bbn-vmiddle"
                style="height: 100%">
             <i :class="{
-                  'nf nf-mdi-lock bbn-red': !!source.private,
-                  'nf nf-mdi-lock_open bbn-green': !source.private
+                  'nf nf-md-lock bbn-red': !!source.private,
+                  'nf nf-md-lock_open bbn-green': !source.private
                 }"/>
             <bbn-checkbox v-model="source.private"
                           :value="true"

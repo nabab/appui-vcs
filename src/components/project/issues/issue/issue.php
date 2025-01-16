@@ -30,7 +30,7 @@
          @click="source.collapsed = true"/>
     </div>
     <div class="bbn-middle bbn-vsmargin bbn-background bbn-radius bbn-spadding bbn-flex-fill">
-      <i class="nf nf-mdi-lock bbn-red bbn-right-sspace"
+      <i class="nf nf-md-lock bbn-red bbn-right-sspace"
          :title="_('Private')"
          v-if="!!source.private"/>
       <div class="bbn-b bbn-secondary-text-alt bbn-upper"
@@ -38,7 +38,7 @@
     </div>
     <div class="bbn-radius bbn-background bbn-left-sspace bbn-middle bbn-xspadding bbn-vsmargin">
       <bbn-context :source="getMenuSource">
-        <i class="nf nf-mdi-dots_vertical bbn-p"/>
+        <i class="nf nf-md-dots_vertical bbn-p"/>
       </bbn-context>
     </div>
   </div>
@@ -73,7 +73,7 @@
                     style="padding-left: 0.5rem; padding-right: 0.5rem"
                     @click="openComments">
           <div class="bbn-vmiddle">
-            <i class="nf nf-mdi-comment_multiple_outline bbn-lg"/>
+            <i class="nf nf-md-comment_multiple_outline bbn-lg"/>
             <span v-text="source.notes"
                   class="bbn-left-sspace"/>
           </div>
@@ -86,15 +86,15 @@
                     :title="_('Tasks')">
           <div class="bbn-vmiddle">
             <template v-if="source.tasks.count">
-              <i class="nf nf-mdi-playlist_check bbn-xl bbn-green"/>
+              <i class="nf nf-md-playlist_check bbn-xl bbn-green"/>
               <span v-text="source.tasks.completed"
                     class="bbn-left-sspace bbn-right-space bbn-green"/>
-              <i class="nf nf-mdi-playlist_remove bbn-lg bbn-red"/>
+              <i class="nf nf-md-playlist_remove bbn-lg bbn-red"/>
               <span v-text="source.tasks.count - source.tasks.completed"
                     class="bbn-left-sspace bbn-red"/>
             </template>
             <template v-else>
-              <i class="bbn-right-sspace nf nf-mdi-format_list_checks bbn-lg"/>
+              <i class="bbn-right-sspace nf nf-md-format_list_checks bbn-lg"/>
               <span v-text="_('No tasks')"
                     class="bbn-upper bbn-xs"/>
             </template>

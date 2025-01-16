@@ -47,7 +47,7 @@
               <div class="bbn-c"
                    style="color: lightseagreen"
                    :title="_('Forks')">
-                <i class="nf nf-mdi-source_fork bbn-xxxl"/>
+                <i class="nf nf-md-source_fork bbn-xxxl"/>
                 <div class="bbn-b"
                      v-text="source.noForks"/>
               </div>
@@ -79,7 +79,7 @@
               <span v-text="_('Tags')"/>
             </div>
             <div class="bbn-no-wrap">
-              <i class="nf nf-mdi-harddisk"/>
+              <i class="nf nf-md-harddisk"/>
               <span class="bbn-b"
                     v-text="formatBytes(source.size)"/>
               <span v-text="_('Files')"/>
@@ -110,7 +110,7 @@
              :title="_('Created at')"/>
           <div v-text="mainPage.formatDate(source.created)"
                :title="_('Created at')"/>
-          <i class="nf nf-mdi-source_branch bbn-lg"
+          <i class="nf nf-md-source_branch bbn-lg"
              :title="_('Default branch')"/>
           <div :title="_('Default branch')"
                class="bbn-vmiddle">

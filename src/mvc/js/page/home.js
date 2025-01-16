@@ -124,8 +124,8 @@
                    'bbn-border-bottom': !!comp.getRef('projectsList').currentData[index + 1]
                  }]">
               <i :class="['bbn-xxl', {
-                   'nf nf-mdi-lock': !!source.private,
-                   'nf nf-mdi-lock_open': !source.private,
+                   'nf nf-md-lock': !!source.private,
+                   'nf nf-md-lock_open': !source.private,
                    'nf nf-fa-archive': !!source.archived
                  }]"/>
             </div>

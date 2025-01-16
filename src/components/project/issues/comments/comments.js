@@ -164,8 +164,8 @@
               <div v-if="!source.id"
                    class="bbn-bottom-sspace bbn-vmiddle">
                 <i :class="{
-                     'nf nf-mdi-lock bbn-red': !!source.private,
-                     'nf nf-mdi-lock_open bbn-green': !source.private
+                     'nf nf-md-lock bbn-red': !!source.private,
+                     'nf nf-md-lock_open bbn-green': !source.private
                    }"/>
                 <bbn-checkbox :label="_('Private')"
                               v-model="source.private"

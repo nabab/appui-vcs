@@ -12,8 +12,8 @@
     <div class="bbn-vmiddle">
       <i v-if="icons"
          :class="['bbn-right-sspace', {
-            'nf nf-mdi-account_star bbn-lg': !!numProperties(source.assigned),
-            'nf nf-mdi-account_off': !numProperties(source.assigned)
+            'nf nf-md-account_star bbn-lg': !!numProperties(source.assigned),
+            'nf nf-md-account_off': !numProperties(source.assigned)
           }]"/>
       <span v-if="!numProperties(source.assigned)"
             v-text="disabled ? _('Unassigned') : _('Assign')"
