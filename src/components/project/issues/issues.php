@@ -58,7 +58,7 @@
     </div>
   </div>
   <div class="bbn-flex-fill">
-    <bbn-collapsable-columns v-if="ready && !!sections && sections.length && !!filters"
+    <bbn-kanban v-if="ready && !!sections && sections.length && !!filters"
                              :source="sections"
                              ref="sections"
                              component="appui-vcs-project-issues-issue"
