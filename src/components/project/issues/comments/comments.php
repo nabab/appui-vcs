@@ -9,13 +9,13 @@
   </div>
   <template v-else>
     <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
-           'bbn-flex-width': !mainPage.isMobile(),
-           'bbn-flex-height': !!mainPage.isMobile()
+           'bbn-flex-width': !isMobile,
+           'bbn-flex-height': !!isMobile
          }]">
       <div class="bbn-alt-background bbn-vmiddle bbn-hspadding bbn-radius bbn-flex-fill"
            style="min-height: 2rem; flex-wrap: wrap">
         <div :class="[{
-               'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
+               'bbn-vmiddle bbn-right-lspace': !isMobile,
              }, 'bbn-vxsmargin']">
           <bbn-button :label="_('New comment')"
                       icon="nf nf-md-comment_plus_outline"
@@ -23,8 +23,8 @@
         </div>
       </div>
       <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-tertiary-text-alt', {
-             'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
-             'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
+             'bbn-left-lspace bbn-right-space': !isMobile,
+             'bbn-top-space bbn-bottom-space': !!isMobile,
            }]"
            v-text="_('Comments')"/>
       <div v-if="fullpage">
@@ -65,11 +65,11 @@
                  :title="_('Private')"
                  v-if="item.private"/>
               <div v-if="item.created === item.updated"
-                    v-text="mainPage.formatDate(item.created)"
+                    v-text="formatDate(item.created)"
                     :title="_('Created at')"
                     class="bbn-s"/>
               <div v-else
-                    v-text="mainPage.formatDate(item.updated)"
+                    v-text="formatDate(item.updated)"
                     :title="_('Updated at')"
                     class="bbn-s"/>
             </div>

@@ -1,11 +1,11 @@
 <div class="appui-vcs-project-issues-comment bbn-background bbn-overlay bbn-flex-height">
   <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
-          'bbn-flex-width': !mainPage.isMobile(),
-          'bbn-flex-height': !!mainPage.isMobile()
+          'bbn-flex-width': !isMobile,
+          'bbn-flex-height': !!isMobile
         }]">
     <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-secondary-text-alt', 'bbn-flex-fill', 'bbn-alt-background', 'bbn-spadding', 'bbn-radius', {
-            'bbn-left-sspace bbn-right-space': !mainPage.isMobile(),
-            'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
+            'bbn-left-sspace bbn-right-space': !isMobile,
+            'bbn-top-space bbn-bottom-space': !!isMobile,
           }]"
           v-text="source.title"/>
     <div>

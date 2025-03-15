@@ -108,7 +108,7 @@
           </div>
           <i class="nf nf-fa-calendar bbn-lg"
              :title="_('Created at')"/>
-          <div v-text="mainPage.formatDate(source.created)"
+          <div v-text="formatDate(source.created)"
                :title="_('Created at')"/>
           <i class="nf nf-md-source_branch bbn-lg"
              :title="_('Default branch')"/>

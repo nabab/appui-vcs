@@ -24,6 +24,6 @@
         style="min-height: 1.9rem; min-width: 1.9rem; align-items: center">
     <i class="nf nf-oct-issue_opened bbn-m bbn-middle"/>
     <div :class="{'bbn-left-xsspace': !!source.opened}"
-          v-text="source.data.items.length"/>
+          v-text="source.data?.items ? source.data.items.length : '0'"/>
   </div>
 </div>

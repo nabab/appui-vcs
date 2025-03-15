@@ -1,5 +1,5 @@
 <?php
-$ctrl->setUrl(APPUI_VCS_ROOT . 'page')
+$ctrl->setUrl($ctrl->pluginUrl('appui-vcs') . '/page')
   ->setColor('lightseagreen', 'white')
   ->setIcon('nf nf-dev-git_branch')
   ->combo(_('VCS'), [

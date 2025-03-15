@@ -1,13 +1,13 @@
 <div class="appui-vcs-project-issues bbn-alt-background bbn-overlay bbn-flex-height">
   <div class="bbn-alt-background bbn-padding">
     <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'appui-vcs-box-shadow', 'bbn-vmiddle', 'bbn-nowrap', {
-           'bbn-flex-width': !mainPage.isMobile(),
-           'bbn-flex-height': !!mainPage.isMobile()
+           'bbn-flex-width': !isMobile,
+           'bbn-flex-height': !!isMobile
          }]">
       <div class="bbn-alt-background bbn-vmiddle bbn-hspadding bbn-radius bbn-flex-fill"
            style="min-height: 2rem; flex-wrap: wrap">
         <div :class="[{
-               'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile(),
+               'bbn-vmiddle bbn-right-lspace': !isMobile,
              }, 'bbn-vxsmargin']">
           <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
                v-text="_('Search')"/>
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div :class="[{
-               'bbn-vmiddle bbn-right-lspace': !mainPage.isMobile()
+               'bbn-vmiddle bbn-right-lspace': !isMobile
              }, 'bbn-vxsmargin']">
           <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
                v-text="_('Filter')"/>
@@ -36,7 +36,7 @@
                               v-model="currentFilter"/>
           </div>
         </div>
-        <div :class="[{'bbn-vmiddle': !mainPage.isMobile()}, 'bbn-vxsmargin']">
+        <div :class="[{'bbn-vmiddle': !isMobile}, 'bbn-vxsmargin']">
           <div class="bbn-upper bbn-right-space bbn-b bbn-secondary-text-alt"
                v-text="_('Cards')"/>
           <div class="bbn-vmiddle">
@@ -51,8 +51,8 @@
         </div>
       </div>
       <div :class="['bbn-upper', 'bbn-b', 'bbn-lg', 'bbn-tertiary-text-alt', {
-             'bbn-left-lspace bbn-right-space': !mainPage.isMobile(),
-             'bbn-top-space bbn-bottom-space': !!mainPage.isMobile(),
+             'bbn-left-lspace bbn-right-space': !isMobile,
+             'bbn-top-space bbn-bottom-space': !!isMobile,
            }]"
            v-text="_('Issues')"/>
     </div>

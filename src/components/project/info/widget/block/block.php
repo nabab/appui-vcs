@@ -17,7 +17,7 @@
               class="bbn-s">(@<span v-text="source.author.username"/>)</span>
       </template>
     </div>
-    <div v-text="mainPage.formatDate(source.created)"
+    <div v-text="formatDate(source.created)"
         :title="_('Created at')"
         class="bbn-s"/>
   </div>

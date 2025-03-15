@@ -5,4 +5,5 @@ if ( !\defined('APPUI_VCS_ROOT') ){
 if (!isset($ctrl->inc->vcs)) {
   $ctrl->addInc('vcs', new \bbn\Appui\Vcs($ctrl->db));
 }
+
 return 1;

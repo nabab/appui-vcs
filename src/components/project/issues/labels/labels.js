@@ -119,8 +119,8 @@
         template: `
           <div class="bbn-background">
             <div :class="['bbn-spadding', 'bbn-background', 'bbn-radius', 'bbn-vmiddle', 'bbn-nowrap', {
-                    'bbn-flex-width': !main.mainPage.isMobile(),
-                    'bbn-flex-height': !!main.mainPage.isMobile()
+                    'bbn-flex-width': !main.isMobile,
+                    'bbn-flex-height': !!main.isMobile
                   }]">
               <div :class="[
                       'bbn-upper',
@@ -132,8 +132,8 @@
                       'bbn-spadding',
                       'bbn-radius',
                       {
-                        'bbn-left-sspace bbn-right-space': !main.mainPage.isMobile(),
-                        'bbn-top-space bbn-bottom-space': !!main.mainPage.isMobile(),
+                        'bbn-left-sspace bbn-right-space': !main.isMobile,
+                        'bbn-top-space bbn-bottom-space': !!main.isMobile,
                       }
                     ]"
                     v-text="'` + bbn._('New label') + `'"/>

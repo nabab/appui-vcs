@@ -10,11 +10,11 @@
             :title="source.author.username || source.author.name"/>
     </div>
     <div v-if="source.created === source.updated"
-         v-text="mainPage.formatDate(source.created)"
+         v-text="formatDate(source.created)"
          :title="_('Created at')"
          class="bbn-s"/>
     <div v-else
-         v-text="mainPage.formatDate(source.updated)"
+         v-text="formatDate(source.updated)"
          :title="_('Updated at')"
          class="bbn-s"/>
   </div>
