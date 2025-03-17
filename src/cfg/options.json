@@ -1,0 +1,10 @@
+[
+    {
+        "cfg": {
+            "show_code": 1,
+            "allow_children": 1
+        },
+        "text": "List",
+        "code": "list"
+    }
+]
