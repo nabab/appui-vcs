@@ -63,6 +63,9 @@
     },
     created(){
       appui.register('appui-vcs', this);
+    },
+    beforeDestroy() {
+      appui.unregister('appui-vcs', this);
     }
   }
 })();

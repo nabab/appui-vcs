@@ -51,6 +51,9 @@
     created(){
       appui.register('appui-vcs-home', this);
     },
+    beforeDestroy() {
+      appui.unregister('appui-vcs-home', this);
+    },
     components: {
       server: {
         template: `
