@@ -1,6 +1,8 @@
 <?php
+use bbn\Appui\Vcs;
+/** @var bbn\Mvc\Model $model */
 if ($model->hasData(['name', 'host', 'type', 'engine', 'adminAccessToken'], true)
-  && ($vcsCls = new \bbn\Appui\Vcs($model->db))
+  && ($vcsCls = new Vcs($model->db))
 ) {
   return [
     'success' => $vcsCls->addServer(

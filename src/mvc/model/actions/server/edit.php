@@ -1,6 +1,7 @@
 <?php
+use bbn\Appui\Vcs;
 if ($model->hasData(['id', 'name', 'host', 'type', 'engine'], true)
-  && ($vcsCls = new \bbn\Appui\Vcs($model->db))
+  && ($vcsCls = new Vcs($model->db))
   && ($old = $vcsCls->getServer($model->data['id']))
 ) {
   $ok1 = true;
