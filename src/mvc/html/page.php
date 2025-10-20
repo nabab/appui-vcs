@@ -2,7 +2,7 @@
   <bbn-router class="appui-vcs-router"
               :scrollable="true"
               :autoload="true"
-              :nav="true">
+              mode="tabs">
     <bbns-container url="home"
                     :fixed="true"
                     :load="true"

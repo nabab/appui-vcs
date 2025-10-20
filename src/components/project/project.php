@@ -1,5 +1,5 @@
 <div class="appui-vcs-project bbn-overlay">
-  <bbn-router :nav="true"
+  <bbn-router mode="tabs"
               :master="true"
               orientation="left"
               ref="router"
