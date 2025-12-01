@@ -10,7 +10,7 @@
         return `<div><div>${row.name}</div><div class="bbn-i">@${row.username}</div></div>`;
       },
       renderDate(row, col){
-        return bbn.date(row[col.field]).format('DD/MM/YYYY HH:mm');
+        return bbn.dt(row[col.field]).format('DD/MM/YYYY HH:mm');
       },
       removeUser(row){
         if (!!this.project.source.server.id

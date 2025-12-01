@@ -10,7 +10,7 @@
         return !!row.default ? '<i class="nf nf-fa-star bbn-primary-text-alt"/>' : '';
       },
       renderCreated(row){
-        return bbn.date(row.created).format('DD/MM/YYYY HH:mm');
+        return bbn.dt(row.created).format('DD/MM/YYYY HH:mm');
       },
       insertBranch(){
         this.getPopup({
